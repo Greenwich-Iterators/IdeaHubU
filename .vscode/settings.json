@@ -1,0 +1,15 @@
+{
+	"cSpell.words": ["EWSD"],
+	"files.exclude": {
+		"**/.devbox": true,
+		"**/.fleet/": true,
+		"**/.idea/": true,
+		"**/Cargo.lock": true,
+		"**/devbox.lock": true,
+		"**/LICENSE*": true,
+		"**/target/": true,
+		"node_modules": true,
+		"package-lock.json": true,
+		".prettierrc": true
+	}
+}
