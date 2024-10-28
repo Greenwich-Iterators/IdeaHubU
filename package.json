@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "concurrently 'node backend/server.js' 'php -S localhost:3000 -t frontend'",
-    "both": "concurrently --names PHP,Backend -c yellow,magenta \"php -S localhost:3000 -t frontend\" \"node backend/server.js\" "
+    "both": "concurrently --names PHP,Backend -c yellow,magenta \"php -S localhost:3000 -t frontend\" \"node --env-file=.env backend/server.js\" ",
+    "server": "node --env-file=.env backend/server.js"
   },
   "keywords": [],
   "author": "EWSD Iterators",
@@ -12,6 +12,12 @@
   "type": "module",
   "dependencies": {
     "concurrently": "^9.0.1",
-    "express": "^5.0.1"
+    "express": "^5.0.1",
+    "mongoose": "^8.7.3",
+    "uploadthing": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "nodemon": "^3.1.7"
   }
 }
