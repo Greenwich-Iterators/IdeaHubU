@@ -10,6 +10,7 @@
 		"**/target/": true,
 		"node_modules": true,
 		"package-lock.json": true,
-		".prettierrc": true
+		".prettierrc": true,
+		"backend\\server.ts": true
 	}
 }
