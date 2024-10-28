@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import userRoutes from "./api/userRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 // Initialisation of express and mongodb
 const app = express();
@@ -39,7 +39,7 @@ async function main() {
 		res.json(data);
 	});
 
-	app.use("/api", userRoutes)
+	app.use("/api/user", userRoutes)
 	app.listen(PORT, () => {
 		console.log(`Server is running on http://localhost:${PORT}`);
 	});
