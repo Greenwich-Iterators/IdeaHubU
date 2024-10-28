@@ -1,5 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
+import userRoutes from "./api/userRoutes.js";
+
+// Initialisation of express and mongodb
 const app = express();
 const PORT = 9000;
 const MONGODB_USERNAME = process.env.MONGODB_USERNAME;
@@ -10,16 +13,17 @@ const URI =
 mongoose.connect(URI, {
 	dbName: "main"
 });
-
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection error:"));
 db.once("open", () => {
 	console.log("Connected to Mongo DataBase");
 });
 
+
 async function main() {
 	app.get("/", (req, res) => {
 		res.send("Hello from Express!");
+
 	});
 
 	app.get("/api/test", (req, res) => {
@@ -35,6 +39,7 @@ async function main() {
 		res.json(data);
 	});
 
+	app.use("/api", userRoutes)
 	app.listen(PORT, () => {
 		console.log(`Server is running on http://localhost:${PORT}`);
 	});
