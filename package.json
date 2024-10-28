@@ -1,24 +1,30 @@
 {
-  "name": "idea-hub-u",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "both": "concurrently --names PHP,Backend -c yellow,magenta \"php -S localhost:3000 -t frontend\" \"node --env-file=.env backend/server.js\" ",
-    "server": "node --env-file=.env backend/server.js"
-  },
-  "keywords": [],
-  "author": "EWSD Iterators",
-  "license": "ISC",
-  "type": "module",
-  "dependencies": {
-    "bcrypt": "^5.1.1",
-    "concurrently": "^9.0.1",
-    "express": "^5.0.1",
-    "mongoose": "^8.7.3",
-    "uploadthing": "^7.2.0"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.0",
-    "nodemon": "^3.1.7"
-  }
+	"name": "idea-hub-u",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"backend": "tsx --watch --env-file=.env backend/server.ts",
+		"build": "tsc",
+		"frontend": "php -S localhost:3000 -t frontend",
+		"both": "concurrently --names PHP,Backend -c yellow,magenta \"npm run frontend\" \"npm run backend\""
+	},
+	"keywords": [],
+	"author": "EWSD Iterators",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "^5.1.1",
+		"concurrently": "^9.0.1",
+		"express": "^5.0.1",
+		"mongoose": "^8.7.3",
+		"uploadthing": "^7.2.0"
+	},
+	"devDependencies": {
+		"@types/bcrypt": "^5.0.2",
+		"@types/express": "^5.0.0",
+		"@types/node": "^22.8.2",
+		"nodemon": "^3.1.7",
+		"tsx": "^4.19.2",
+		"typescript": "^5.6.3"
+	}
 }
