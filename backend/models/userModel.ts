@@ -1,12 +1,17 @@
 import mongoose from "mongoose";
+import { hashPassword } from "../utils/crypt";
 
 const userSchema = new mongoose.Schema({
-    username: String,
-    password: String, // Hashed / Encrypted
-    email: String, // Hashed / Encrypted
-    role: String // USe typescript enums  
+	username: { type: String, required: true, unique: true },
+	email: { type: String, required: true, unique: true },
+	password: { type: String, required: true },
 });
 
-const User = mongoose.model("User", userSchema);
+userSchema.pre("save", async function (next) {
+	if (this.isModified("password")) {
+		this.password = await hashPassword(this.password);
+	}
+	next();
+});
 
-export default User;
+export default mongoose.model("User", userSchema);

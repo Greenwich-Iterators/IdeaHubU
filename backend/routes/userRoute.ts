@@ -1,18 +1,21 @@
 import express, { Request, Response } from "express";
-import hashAndSalt from "../utils/crypt";
+import User from "../models/userModel";
 
-const userRoutes = express.Router();
-// All routes bellow are /api/user/*
-userRoutes.get("/", (req: Request, res: Response) => {
+const userRouter = express.Router();
+
+userRouter.get("/", (req: Request, res: Response) => {
 	res.send("Hello from /api/user nested api.");
 });
 
-// How to use the hash function (TEST iN DEV NOT PROD!!)
-// userRoutes.get("/hashpass", async (req: Request, res: Response) => {
-// 	const plainPass = "test";
-// 	const result = await hashAndSalt(plainPass);
-// 	console.log(result);
-// 	res.send({ hashedPass: result });
-// });
+userRouter.post("/register", async (req: Request, res: Response) => {
+	try {
+		const { username, email, password } = req.body;
+		const newUser = new User({ username, email, password });
+		await newUser.save();
+		res.status(201).json({ message: "User registered successfully" });
+	} catch (error) {
+		res.status(400).json({ error: "Registration failed" });
+	}
+});
 
-export default userRoutes;
+export default userRouter;
