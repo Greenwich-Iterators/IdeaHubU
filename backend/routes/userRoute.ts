@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import User from "../models/userModel";
 import { generateAccessToken } from "../utils/jwt";
 import { comparePasswords } from "../utils/crypt";
+import sessionModel from "../models/sessionModel";
 
 const userRouter = express.Router();
 
@@ -33,16 +34,37 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 		}
 
 		const generatedToken = await generateAccessToken(username);
+		const userId = user._id;
+		let session = await sessionModel.findOne({ userId });
+		let lastLogin = null;
+		let firstLogin = false;
+
+		if (session) {
+			lastLogin = session.lastLogin;
+			// Update the session with new login time
+			session.lastLogin = new Date();
+			await session.save();
+		} else {
+			// Create a new session if it doesn't exist
+			firstLogin = true;
+			session = new sessionModel({
+				userId,
+				lastLogin: new Date(),
+			});
+			await session.save();
+		}
 
 		res.json({
 			success: true,
 			message: "Login successful",
 			token: generatedToken,
-			expiresIn: '8h',
-			lastLogin: undefined
+			expiresIn: "8h",
+			lastLogin: lastLogin,
+			firstLogin: firstLogin,
+			userId: userId,
 		});
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 		res.status(500).json({ success: false, error: "Server error" });
 	}
 });
