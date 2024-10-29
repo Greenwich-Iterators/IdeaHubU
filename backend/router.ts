@@ -1,43 +1,22 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import userRoutes from "./routes/userRoute";
 import { createRouteHandler } from "uploadthing/express";
-import { createUploadthing, type FileRouter } from "uploadthing/express";
+import { uploadRouter } from "./utils/uploadthing";
 
-const routeHandler = express.Router();
+const mainRouter = express.Router(); // Base api route is /api/*
 
-routeHandler.get("/test", (req, res) => {
+mainRouter.get("/test", (req: Request, res: Response) => {
 	res.send("Hello from the API!");
 });
 
-routeHandler.get("/json_test", (req, res) => {
-	const data = {
-		name: "John Doe",
-		age: 30,
-		city: "New York",
-	};
-	res.json(data);
-});
-
-routeHandler.use("/user", userRoutes);
+mainRouter.use("/user", userRoutes);
 
 // UploadThing
-const f = createUploadthing();
-const uploadRouter = {
-	imageUploader: f({
-		image: {
-			maxFileSize: "4MB",
-			maxFileCount: 4,
-		},
-	}).onUploadComplete((data) => {
-		console.log("upload completed", data);
-	}),
-} satisfies FileRouter;
-
-routeHandler.use(
+mainRouter.use(
 	"/uploadthing",
 	createRouteHandler({
 		router: uploadRouter,
 	})
 );
 
-export default routeHandler;
+export default mainRouter;

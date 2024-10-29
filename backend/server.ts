@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import mongoose, { Connection } from "mongoose";
-import routeHandler from "./router";
+import mainRouter from "./router";
 
 // Initialisation of express and mongodb
 const app = express();
@@ -11,28 +11,17 @@ const URI = `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@ideauhub-shard-00
 
 // Database connection
 mongoose.connect(URI, {
-	dbName: "main",
-});
-
-const db: Connection = mongoose.connection;
-db.on("error", console.error.bind(console, "Connection error:"));
-db.once("open", () => {
-	console.log("Connected to MongoDB");
-});
-
-// Express app setup
-app.get("/", (req: Request, res: Response) => {
-	res.send("Hello from Express!");
-});
+		dbName: "main",
+	})
+	.then(() => console.log("Connected to MongoDB"))
+	.catch((error) => console.error("MongoDB connection error:", error));
 
 // API Route Handler
-app.use("/api", routeHandler);
+app.use(express.json());
+app.use("/api", mainRouter);
+
 
 // Start the server
-async function startServer() {
-	app.listen(PORT, () => {
-		console.log(`Server is running on http://localhost:${PORT}`);
-	});
-}
-
-startServer().catch(console.error);
+app.listen(PORT, () => {
+	console.log(`Server running on http://localhost:${PORT}`);
+});
