@@ -62,6 +62,7 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 			lastLogin: lastLogin,
 			firstLogin: firstLogin,
 			userId: userId,
+			role: user.role
 		});
 	} catch (error) {
 		console.log(error);
@@ -71,17 +72,17 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 
 userRouter.post("/register", async (req: Request, res: Response) => {
 	try {
-		const { username, email, password } = req.body;
+		const { username, email, password, role } = req.body;
 		const userExists = await User.exists({ username });
 		if (userExists) {
-			res.status(400).json({
+			res.status(409).json({
 				success: false,
 				error: "Username already exists",
 			});
 			return;
 		}
 
-		const newUser = new User({ username, email, password });
+		const newUser = new User({ username, email, password, role });
 		await newUser.save();
 		const generatedToken = await generateAccessToken(username);
 		res.status(201).json({
@@ -90,8 +91,16 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 			token: generatedToken,
 		});
 	} catch (error) {
-		res.status(400).json({ success: false, error: "Registration failed" });
+		res.status(500).json({ success: false, error: "Registration failed" });
 	}
+
+
+
+
+
+
+
+
 });
 
 export default userRouter;
