@@ -14,6 +14,7 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 	try {
 		const { username, password } = req.body;
 		const user = await User.findOne({ username });
+		
 
 		if (!user) {
 			res.status(401).json({
@@ -22,7 +23,7 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 			});
 			return;
 		}
-
+		const userId = user._id;
 		const isPasswordValid = await comparePasswords(password, user.password);
 
 		if (!isPasswordValid) {
@@ -33,8 +34,8 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 			return;
 		}
 
-		const generatedToken = await generateAccessToken(username);
-		const userId = user._id;
+		// const userId = user._id;
+		const generatedToken = await generateAccessToken(userId);
 		let session = await sessionModel.findOne({ userId });
 		let lastLogin = null;
 		let firstLogin = false;
@@ -47,6 +48,7 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 		} else {
 			// Create a new session if it doesn't exist
 			firstLogin = true;
+			lastLogin = new Date();
 			session = new sessionModel({
 				userId,
 				lastLogin: new Date(),
@@ -54,8 +56,7 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 			await session.save();
 		}
 
-		res.json({
-			success: true,
+		res.status(200).json({
 			message: "Login successful",
 			token: generatedToken,
 			expiresIn: "8h",
@@ -77,18 +78,16 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 		if (userExists) {
 			res.status(409).json({
 				success: false,
-				error: "Username already exists",
+				error: "User already exists",
 			});
 			return;
 		}
 
 		const newUser = new User({ username, email, password, role });
 		await newUser.save();
-		const generatedToken = await generateAccessToken(username);
 		res.status(201).json({
 			success: true,
 			message: "User registered successfully",
-			token: generatedToken,
 		});
 	} catch (error) {
 		res.status(500).json({ success: false, error: "Registration failed" });
