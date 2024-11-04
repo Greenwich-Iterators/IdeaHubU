@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import User from "../models/userModel";
+import User, { Roles } from "../models/userModel";
 import { generateAccessToken } from "../utils/jwt";
 import { comparePasswords } from "../utils/crypt";
 import sessionModel from "../models/sessionModel";
@@ -73,7 +73,7 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 
 userRouter.post("/register", async (req: Request, res: Response) => {
 	try {
-		const { username, email, password, role } = req.body;
+		const { username, email, password } = req.body;
 		const userExists = await User.exists({ username });
 		if (userExists) {
 			res.status(409).json({
@@ -83,7 +83,7 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 			return;
 		}
 
-		const newUser = new User({ username, email, password, role });
+		const newUser = new User({ username, email, password, role: Roles.Staff });//Implicitly apply Roles.Staff for users created in this manner.
 		await newUser.save();
 		res.status(201).json({
 			success: true,
@@ -92,7 +92,6 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 	} catch (error) {
 		res.status(500).json({ success: false, error: "Registration failed" });
 	}
-
 
 
 
