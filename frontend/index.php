@@ -18,24 +18,24 @@ error_reporting(1)
 	<div class="intro-container">
 		<div class="slideshow">
 			<div>
-				<h3>Cardio & <span>Aerobics</span></h3>
+
 				<img src="./images/dl.beatsnoop.com-3000-krLozN7WF1.jpg" alt="">
 			</div>
 
 			<div>
-				<h3>Strength <span>Training</span></h3>
+
 				<img src="./images/dl.beatsnoop.com-3000-QkMV8fRcyY.jpg" alt="">
 			</div>
 			<div>
-				<h3>Martial <span>Arts</span></h3>
+
 				<img src="./images/dl.beatsnoop.com-3000-JBGzcL9KiV.jpg" alt="">
 			</div>
 			<div>
-				<h3>Yoga <span>Lessons</span></h3>
+
 				<img src="./images/dl.beatsnoop.com-3000-AYMWHz3ro9.jpg" alt="">
 			</div>
 			<div>
-				<h3>Yoga <span>Lessons</span></h3>
+
 				<img src="./images/dl.beatsnoop.com-3000-VtYI4kBE9R.jpg" alt="">
 			</div>
 
