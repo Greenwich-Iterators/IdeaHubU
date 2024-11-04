@@ -28,6 +28,20 @@ if (isset($_POST['submit'])) {
 
 
 	//Checks to see if firstname, Last name and passwords are correct
+	$body = json_encode([
+		"firstName"=> $firstName, 
+		"lastName" => $lastName, 
+		"password" => $password
+	]);
+	$url = 'https://localhost:9000/api/users/register';
+
+	// Init curl
+	$curl = curl_init($url);
+	curl_setopt($curl, CURLOPT_POST, true);
+	curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+	$response = curl_exec($curl);
+
+	echo $response . PHP_EOL;
 
 
 	if (!empty($firstName) && !empty($lastName) && !empty($userName) && !empty($password) && !is_numeric($firstName) && !is_numeric($lastName) && !is_numeric($userName)) {
