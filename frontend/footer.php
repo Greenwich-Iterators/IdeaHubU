@@ -190,7 +190,7 @@
 
 
         <div id='footer-icons'>
-            <p>Socials</p>
+            <p>Social links</p>
 
             <ul>
 
