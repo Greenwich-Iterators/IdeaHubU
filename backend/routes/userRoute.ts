@@ -12,8 +12,8 @@ userRouter.get("/", (req: Request, res: Response) => {
 
 userRouter.post("/login", async (req: Request, res: Response) => {
 	try {
-		const { username, password } = req.body;
-		const user = await User.findOne({ username });
+		const { email, password } = req.body;
+		const user = await User.findOne({ email });
 		
 
 		if (!user) {
@@ -63,7 +63,8 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 			lastLogin: lastLogin,
 			firstLogin: firstLogin,
 			userId: userId,
-			role: user.role
+			role: user.role,
+			username: user.username
 		});
 	} catch (error) {
 		console.log(error);
@@ -73,7 +74,7 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 
 userRouter.post("/register", async (req: Request, res: Response) => {
 	try {
-		const { username, email, password } = req.body;
+		const { firstname, lastname, username, email, password } = req.body;
 		const userExists = await User.exists({ username });
 		if (userExists) {
 			res.status(409).json({
@@ -83,7 +84,7 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 			return;
 		}
 
-		const newUser = new User({ username, email, password, role: Roles.Staff });//Implicitly apply Roles.Staff for users created in this manner.
+		const newUser = new User({ firstname, lastname,username, email, password, role: Roles.Staff }); //Implicitly apply Roles.Staff for users created in this manner.
 		await newUser.save();
 		res.status(201).json({
 			success: true,
