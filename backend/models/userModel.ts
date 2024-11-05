@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { hashPassword } from "../utils/crypt";
 
+const ObjectID = mongoose.Schema.Types.ObjectId;
 export enum Roles {
 	Manager = "Manager",
 	Coordinator = "Coordinator",
@@ -15,11 +16,13 @@ const userSchema = new mongoose.Schema({
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
 	role: { type: String, enum: Object.values(Roles), required: true },
+	departmentId: { type: ObjectID, ref: "Department" },
+	blocked: { type: Boolean, default: false },
 });
 
 userSchema.pre("save", async function (next) {
 	if (this.isModified("password")) {
-		console.log("New User Created: ", this)
+		console.log("New User Created: ", this);
 		this.password = await hashPassword(this.password);
 	}
 	next();
