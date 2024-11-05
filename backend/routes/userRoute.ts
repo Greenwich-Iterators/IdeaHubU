@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import User, { Roles } from "../models/userModel";
-import { generateAccessToken } from "../utils/jwt";
+import { generateAccessToken, verifyToken } from "../utils/jwt";
 import { comparePasswords } from "../utils/crypt";
 import sessionModel from "../models/sessionModel";
 
@@ -71,6 +71,34 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 	}
 });
 
+userRouter.get("/verifytoken", async (req: Request, res: Response) => {
+	try {
+		const token = req.headers.authorization?.split(" ")[1];
+
+		if (!token) {
+			res.status(401).json({
+				valid: false,
+				message: "No token provided",
+			});
+			return;
+		}
+
+		const result = verifyToken(token);
+
+		if (!result.valid) {
+			res.status(401).json({
+				valid: false,
+				message: "Invalid or expired token",
+			});
+			return;
+		}
+		res.status(200).json({ valid: true, userId: result.userId });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ valid: false, message: "Server error" });
+	}
+});
+
 userRouter.post("/register", async (req: Request, res: Response) => {
 	try {
 		const { firstname, lastname, username, email, password } = req.body;
@@ -100,7 +128,7 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 			message: "User registered successfully",
 		});
 	} catch (error) {
-		console.log(error)
+		console.log(error);
 		res.status(500).json({ success: false, error: "Registration failed" });
 	}
 });
