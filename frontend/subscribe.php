@@ -10,7 +10,7 @@ require 'phpmailer/vendor/autoload.php';
 require_once 'phpmailer/vendor/phpmailer/phpmailer/Exception.php';
 require_once 'phpmailer/vendor/phpmailer/phpmailer/PHPMailer.php';
 require_once 'phpmailer/vendor/phpmailer/phpmailer/SMTP.php';
-include 'config.php';
+// include 'config.php';
 
 $mail = new PHPMailer();
 

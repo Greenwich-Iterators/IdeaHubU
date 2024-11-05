@@ -14,7 +14,6 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 	try {
 		const { email, password } = req.body;
 		const user = await User.findOne({ email });
-		
 
 		if (!user) {
 			res.status(401).json({
@@ -64,7 +63,7 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 			firstLogin: firstLogin,
 			userId: userId,
 			role: user.role,
-			username: user.username
+			username: user.username,
 		});
 	} catch (error) {
 		console.log(error);
@@ -84,22 +83,26 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 			return;
 		}
 
-		const newUser = new User({ firstname, lastname,username, email, password, role: Roles.Staff }); //Implicitly apply Roles.Staff for users created in this manner.
+		const newUser = new User({
+			firstname,
+			lastname,
+			username,
+			email,
+			password,
+			role: Roles.Staff,
+		});
+
+		await User.create(newUser);
+		//Implicitly apply Roles.Staff for users created in this manner.
 		await newUser.save();
 		res.status(201).json({
 			success: true,
 			message: "User registered successfully",
 		});
 	} catch (error) {
+		console.log(error)
 		res.status(500).json({ success: false, error: "Registration failed" });
 	}
-
-
-
-
-
-
-
 });
 
 export default userRouter;

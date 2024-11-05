@@ -2,102 +2,71 @@
 include_once 'header.php';
 session_start();
 
-//if (!isset($_SESSION['first_name'])) {
-//	header("Location: login.php");
-//}
-
-include 'config.php';
-require './PHPMailer/Mail.php';
-
 error_reporting(1);
 
-
-
-
 if (isset($_POST['submit'])) {
-	$firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
-	$lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
-	$userName = mysqli_real_escape_string($conn, $_POST['userName']);
-	$email = mysqli_real_escape_string($conn, $_POST['email']);
-	$password = mysqli_real_escape_string($conn, $_POST['password']);
-	$cPassword = mysqli_real_escape_string($conn, $_POST['cPassword']);
-	$image = $_FILES['photo']['name'];
-	$image_size = $_FILES['photo']['size'];
-	$image_tmp_name = $_FILES['photo']['tmp_name'];
-	$image_folder = 'profile_pics/' . $image;
+	$firstname = $_POST['firstname'];
+	$lastname = $_POST['lastname'];
+	$username = $_POST['username'];
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+	$cPassword = $_POST['cPassword'];
 
-
-	//Checks to see if firstname, Last name and passwords are correct
-	$body = json_encode([
-		"firstName"=> $firstName, 
-		"lastName" => $lastName, 
-		"password" => $password
-	]);
-	$url = 'https://localhost:9000/api/users/register';
-
-	// Init curl
-	$curl = curl_init($url);
-	curl_setopt($curl, CURLOPT_POST, true);
-	curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-	$response = curl_exec($curl);
-
-	echo $response . PHP_EOL;
-
-
-	if (!empty($firstName) && !empty($lastName) && !empty($userName) && !empty($password) && !is_numeric($firstName) && !is_numeric($lastName) && !is_numeric($userName)) {
-
-
+	if (!empty($firstname) && !empty($lastname) && !empty($username) && !empty($password) && !is_numeric($firstname) && !is_numeric($lastname) && !is_numeric($username)) {
 		if ($password == $cPassword) {
-			$sql = "SELECT * FROM members WHERE email='$email'";
-			$newPwdHash = password_hash($password, PASSWORD_DEFAULT);
-			$result = mysqli_query($conn, $sql);
+			// Prepare data for API call
+			$data = array(
+				'firstname' => $firstname,
+				'lastname' => $lastname,
+				'username' => $username,
+				'email' => $email,
+				'password' => $password
+			);
 
-			//writing data to the database
+			$url = 'http://localhost:9000/api/user/register';
 
-			// if (empty($password) && empty($cPassword)) {
-			// 	$message[] = 'Oops! Looks like you did not enter any paswords.';
-			// }
-			if (!$result->num_rows > 0) {
-				$sql = " INSERT INTO members (first_name,last_name,email,password,username,photo)
-        		VALUES('$firstName','$lastName','$email','$newPwdHash', '$userName','$photo')";
-				$result = mysqli_query($conn, $sql);
-				if ($result) {
+			// Prepare the options for the HTTP stream
+			$options = [
+				'http' => [
+					'method' => 'POST',
+					'header' => 'Content-Type: application/json',
+					'content' => json_encode($data)
+				]
+			];
 
+			// Create a stream context
+			$context = stream_context_create($options);
 
-					$message[] = 'Congratulations! You have successfully registered to Amaka Zambia Gym.<br>We have emailed your username to the email address you provided.<br>You many now proceed to login to your profile.';
+			// Send the request
+			$response = @file_get_contents($url, false, $context);
 
-					$firstName = "";
-					$lastName = "";
-					$email = "";
-					$userName = "";
-					$_POST['password'] = "";
-					$_POST['cPassword'] = "";
-					$_POST['photo'];
-
-					header('location:login.php');
-				} else {
-
-					$message[] = 'Oops! Looks like we are unable to register you at this time. Please try again.';
-
-					if ($image_size > 200000) {
-						$message[] = 'Image used is too large to upload!';
-					} else {
-						move_uploaded_file($image_tmp_name, $image_folder);
-					}
-				}
+			if ($response === FALSE) {
+				$message[] = "Error connecting to the server. Please try again later.";
 			} else {
-				$message[] = 'Oops! Looks like that username is already taken.<br> Please create a different username.';
+				$httpCode = $http_response_header[0];
+				if (strpos($httpCode, '201') !== false) {
+					$result = json_decode($response, true);
+					if (isset($result['success']) && $result['success']) {
+						$message[] = "Registration successful! Please log in.";
+						// You might want to redirect to login page here
+						// header("Location: login.php");
+					} else {
+						$message[] = "Registration failed. " . ($result['message'] ?? "Please try again.");
+					}
+				} else {
+					$message[] = "Error connecting to the server. Please try again later.";
+				}
 			}
 		} else {
-
-
 			$message[] = 'Oops! Looks like your passwords do not match!';
 		}
 	} else {
 		$message[] = 'Oops! Looks like you have not entered all the information.';
 	}
 }
+?>
 
+<!-- Rest of your HTML code remains the same -->
 ?>
 
 
@@ -129,25 +98,31 @@ if (isset($_POST['submit'])) {
 
 
 
-			<div><label for="firstName"></label>
-				<input type="text" name="firstName" class="signup-inputs" placeholder="First Name" value="<?php echo $firstName; ?>" required minlength="4" maxlength="30">
+			<div><label for="firstname"></label>
+				<input type="text" name="firstname" class="signup-inputs" placeholder="First Name"
+					value="<?php echo $firstname; ?>" required minlength="4" maxlength="30">
 			</div><br><br>
 
-			<div><label for="lastName"></label>
-				<input type="text" name="lastName" class="signup-inputs" placeholder="Last Name" value="<?php echo $lastName; ?>" required maxlength="30">
+			<div><label for="lastname"></label>
+				<input type="text" name="lastname" class="signup-inputs" placeholder="Last Name"
+					value="<?php echo $lastname; ?>" required maxlength="30">
 			</div><br><br>
 
-			<div><label for="userName"></label>
-				<input type="text" name="userName" class="signup-inputs" placeholder="Username " value="<?php echo $userName; ?>" required maxlength="30">
+			<div><label for="username"></label>
+				<input type="text" name="username" class="signup-inputs" placeholder="Username "
+					value="<?php echo $username; ?>" required maxlength="30">
 			</div><br><br>
 
 
 			<div><label for="email"></label>
-				<input type="text" name="email" class="signup-inputs" placeholder="Enter email" type="email" value="<?php echo $email; ?>" required>
+				<input type="text" name="email" class="signup-inputs" placeholder="Enter email" type="email"
+					value="<?php echo $email; ?>" required>
 			</div><br><br>
 
 			<div><label for="password"></label>
-				<input type="password" id="password" name="password" min-length="" class="signup-inputs" placeholder="Enter password" value="<?php echo $_POST['password']; ?>" required minlength="6" maxlength="30">
+				<input type="password" id="password" name="password" min-length="" class="signup-inputs"
+					placeholder="Enter password" value="<?php echo $_POST['password']; ?>" required minlength="6"
+					maxlength="30">
 				<span class="password-icon" onclick="showHidePassword()">
 
 					<i class="fa-solid fa-eye" id="show-password"></i>
@@ -156,7 +131,9 @@ if (isset($_POST['submit'])) {
 			</div><br><br>
 
 			<div><label for="cPassword"></label>
-				<input type="password" id="cPassword" name="cPassword" class="signup-inputs" placeholder="Confirm password" value="<?php echo $_POST['cPassword']; ?>" required minlength="6" maxlength="30">
+				<input type="password" id="cPassword" name="cPassword" class="signup-inputs"
+					placeholder="Confirm password" value="<?php echo $_POST['cPassword']; ?>" required minlength="6"
+					maxlength="30">
 				<span class="password-icon" onclick="showHidePassword2()">
 
 					<i class="fa-solid fa-eye" id="show-Cpassword"></i>

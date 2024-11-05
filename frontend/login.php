@@ -2,7 +2,7 @@
 include_once 'header.php';
 session_start();
 
-include 'config.php';
+// include 'config.php';
 
 error_reporting(0);
 

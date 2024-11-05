@@ -2,8 +2,8 @@
 include_once 'header.php';
 session_start();
 
-include 'config.php';
-require 'subscribe.php';
+// include 'config.php';
+// require 'subscribe.php';
 
 
 error_reporting(1)
