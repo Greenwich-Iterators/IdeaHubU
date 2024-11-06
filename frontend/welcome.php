@@ -1,20 +1,16 @@
 <?php
-// Check if the auth_token cookie exists
+// Check if the auth_token cookie exists and redirect to login page if the auth_token cookie is not set
 if (!isset($_COOKIE['auth_token'])) {
-    // Redirect to login page if the auth_token cookie is not set
     header("Location: login.php");
     exit();
 }
 
-// Access the token from the cookie
 $token = $_COOKIE['auth_token'];
-
-// Verify the token with the backend
-$url = 'http://localhost:9000/api/user/verifytoken'; // Adjust this URL to match your backend URL
+$url = 'http://localhost:9000/api/user/verifytoken';
 $options = [
     'http' => [
-        'header'  => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
-        'method'  => 'GET'
+        'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+        'method' => 'GET'
     ]
 ];
 $context = stream_context_create($options);
@@ -39,13 +35,22 @@ if (!$response['valid']) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
 </head>
+
 <body>
     <h1>Welcome, logged in user!</h1>
     <p>Your user ID is: <?php echo htmlspecialchars($response['userId']); ?></p>
+
+    <form action="upload_handler.php" method="post" enctype="multipart/form-data">
+        Select image to upload:
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" value="Upload Image" name="submit">
+    </form>
 </body>
+
 </html>

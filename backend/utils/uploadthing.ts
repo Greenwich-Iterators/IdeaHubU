@@ -3,8 +3,8 @@ import { createUploadthing, type FileRouter } from "uploadthing/express";
 const f = createUploadthing();
 
 export const uploadRouter = {
-	imageUploader: f({
-		image: {
+	fileUploader: f({
+		pdf: {
 			maxFileSize: "4MB",
 			maxFileCount: 4,
 		},
