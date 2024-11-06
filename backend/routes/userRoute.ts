@@ -133,6 +133,7 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 	}
 });
 
+//assign user roles
 userRouter.post("/roles", async (req: Request, res: Response) => {
 
 	try{
@@ -174,7 +175,34 @@ userRouter.post("/roles", async (req: Request, res: Response) => {
 
 });
 
-userRouter.get("/all", async (res: Response) => {
+//change user's blocked status
+userRouter.post("/block", async (req: Request, res: Response) => {
+	const { userId} = req.body;
+
+	const user = await User.findById(userId);
+
+	if (!user) {
+		res.status(404).json({
+			success: false,
+			error: "Couldn't find requested user",
+		});
+		return;
+	}
+
+	user.blocked = !user.blocked;
+
+	const filter = {_id: userId};
+	await User.updateOne(filter, user);
+
+	res.status(200).json({
+		success: true,
+		message: `Successfully ${user.blocked ? 'blocked' : 'unblocked'} user: ${user.firstname}`
+	})
+
+})
+
+//get all users
+userRouter.get("/all", async (req: Request, res: Response) => {
 	const allUsers = await User.find();
 
 	res.status(200).json({
