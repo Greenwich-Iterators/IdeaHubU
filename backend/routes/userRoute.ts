@@ -133,4 +133,54 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 	}
 });
 
+userRouter.post("/roles", async (req: Request, res: Response) => {
+
+	try{
+		const { userId, role } = req.body;
+
+		const user = await User.findById(userId);
+
+		if (!user) {
+			res.status(404).json({
+				success: false,
+				error: "Couldn't find requested user",
+			});
+			return;
+		}
+
+
+		if(!Object.values(Roles).includes(role)){
+			res.status(400).json({
+				success: false,
+				error: "Invalid user role. User role can only be Administrator, Coordinator, Manager or Staff"
+			})
+		}
+
+		user.role = role;
+		let filter = {_id: userId}
+		await User.updateOne(filter, user );
+
+		res.status(201).json({
+			success: true,
+			message: `Successfully updated ${user.firstname}'s role to ${user.role}`,
+		});
+	}
+	catch(error: any){
+		res.status(400).json({
+			success: false,
+			message: `An error occurred. Reason: ${error.message}`
+		})
+	}
+
+});
+
+userRouter.get("/all", async (res: Response) => {
+	const allUsers = await User.find();
+
+	res.status(200).json({
+		success: true,
+		users: allUsers
+	});
+})
+
 export default userRouter;
