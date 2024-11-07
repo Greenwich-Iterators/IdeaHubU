@@ -218,6 +218,7 @@
             <ul>
                 <li><a href="login.php">Register</a> </li>
                 <li><a href="signup.php">Sign-Up</a> </li>
+                <li><a href="concepts.php">Concept hub</a> </li>
                 <li><a href="contact.php"> Contact Us </a></li>
                 <li><a href="information.php#pricing">FAQs</a></li>
             </ul>

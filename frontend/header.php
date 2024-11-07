@@ -110,7 +110,7 @@
                 </div>
 
                 <div id="information"><a href="#"> SERVICES </a> </div>
-                <div id="wall-of-fame"><a href="#"> TESTIMONIALS </a></div>
+                <div id="wall-of-fame"><a href="#"> CONCEPT HUB </a></div>
                 <div id="gallery"><a href="#"> FAQs </a></div>
                 <div id="contact"><a href="contact.php"> CONTACT US </a></div>
 
