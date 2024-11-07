@@ -155,6 +155,7 @@ userRouter.post("/roles", async (req: Request, res: Response) => {
 				success: false,
 				error: "Invalid user role. User role can only be Administrator, Coordinator, Manager or Staff"
 			})
+			return;
 		}
 
 		user.role = role;
