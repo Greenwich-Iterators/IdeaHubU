@@ -1,5 +1,5 @@
-import express, { NextFunction, Request, Response } from "express";
-import mongoose, { Connection } from "mongoose";
+import express from "express";
+import mongoose from "mongoose";
 import mainRouter from "./router";
 import auth from "./middleware/auth";
 
@@ -17,6 +17,8 @@ mongoose
 	})
 	.then(() => console.log("Connected to MongoDB"))
 	.catch((error) => console.error("MongoDB connection error:", error));
+
+
 
 // API Route Handler
 app.use(express.json());

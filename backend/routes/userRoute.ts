@@ -3,6 +3,7 @@ import User, { Roles } from "../models/userModel";
 import { generateAccessToken, verifyToken } from "../utils/jwt";
 import { comparePasswords } from "../utils/crypt";
 import sessionModel from "../models/sessionModel";
+import icloud from "../utils/email";
 
 const userRouter = express.Router();
 
@@ -211,5 +212,23 @@ userRouter.get("/all", async (req: Request, res: Response) => {
 		users: allUsers
 	});
 })
+
+userRouter.get("/emailtest", async (req, res) => {
+	console.log("starting");
+	try {
+		const info = await icloud.sendMail({
+			from: '"IdeaHubU Platform 👻" <ideahubu@icloud.com>',
+			to: ["nizasichi@icloud.com", "dev.niza@icloud.com"],
+			subject: "Hello ✔ I am from the backend!!",
+			text: "Hello world? I am so tired but happy that this works. I want to sleep... I really do...",
+		});
+
+		console.log("Message sent:", info.messageId);
+		res.status(200).json({ success: true, messageId: info.messageId });
+	} catch (error) {
+		console.error("Error sending email:", error);
+		res.status(500).json({ success: false, error: error });
+	}
+});
 
 export default userRouter;
