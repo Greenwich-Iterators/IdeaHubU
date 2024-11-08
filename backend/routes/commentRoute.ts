@@ -3,10 +3,10 @@ import Idea from "../models/ideasModel"
 import User from "../models/userModel"
 import Comment from "../models/commentModel"
 
-const commentRouter = express();
+const commentRoute = express();
 
 //add a comment
-commentRouter.post("/add", async (req: Request, res: Response) => {
+commentRoute.post("/add", async (req: Request, res: Response) => {
 	try {
 		const {ideaId, userId, content} = req.body;
 
@@ -61,7 +61,7 @@ commentRouter.post("/add", async (req: Request, res: Response) => {
 })
 
 //edit a comment
-commentRouter.put("/edit", async (req: Request, res: Response) => {
+commentRoute.put("/edit", async (req: Request, res: Response) => {
 	const { commentId, content } = req.body;
 
 	if(!content){
@@ -96,7 +96,7 @@ commentRouter.put("/edit", async (req: Request, res: Response) => {
 })
 
 //delete a comment
-commentRouter.delete("/delete", async (req: Request, res: Response) => {
+commentRoute.delete("/delete", async (req: Request, res: Response) => {
 	const { commentID: commentId} = req.body;
 
 	const existingComment = await Comment.findById(commentId);
@@ -119,7 +119,7 @@ commentRouter.delete("/delete", async (req: Request, res: Response) => {
 })
 
 //get all comments per idea
-commentRouter.get("/idea", async (req: Request, res: Response) => {
+commentRoute.get("/idea", async (req: Request, res: Response) => {
 	const {ideaId} = req.body;
 	const allIdeaComments = await Comment.find({ideaId: ideaId});
 
@@ -129,4 +129,4 @@ commentRouter.get("/idea", async (req: Request, res: Response) => {
 	})
 })
 
-export default commentRouter;
+export default commentRoute;
