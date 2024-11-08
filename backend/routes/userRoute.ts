@@ -3,7 +3,7 @@ import User, { Roles } from "../models/userModel";
 import { generateAccessToken, verifyToken } from "../utils/jwt";
 import { comparePasswords } from "../utils/crypt";
 import sessionModel from "../models/sessionModel";
-import icloud from "../utils/email";
+import icloud, { sendEmail } from "../utils/email";
 
 const userRouter = express.Router();
 
@@ -136,8 +136,7 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 
 //assign user roles
 userRouter.post("/roles", async (req: Request, res: Response) => {
-
-	try{
+	try {
 		const { userId, role } = req.body;
 
 		const user = await User.findById(userId);
@@ -150,36 +149,33 @@ userRouter.post("/roles", async (req: Request, res: Response) => {
 			return;
 		}
 
-
-		if(!Object.values(Roles).includes(role)){
+		if (!Object.values(Roles).includes(role)) {
 			res.status(400).json({
 				success: false,
-				error: "Invalid user role. User role can only be Administrator, Coordinator, Manager or Staff"
-			})
+				error: "Invalid user role. User role can only be Administrator, Coordinator, Manager or Staff",
+			});
 			return;
 		}
 
 		user.role = role;
-		let filter = {_id: userId}
-		await User.updateOne(filter, user );
+		let filter = { _id: userId };
+		await User.updateOne(filter, user);
 
 		res.status(201).json({
 			success: true,
 			message: `Successfully updated ${user.firstname}'s role to ${user.role}`,
 		});
-	}
-	catch(error: any){
+	} catch (error: any) {
 		res.status(400).json({
 			success: false,
-			message: `An error occurred. Reason: ${error.message}`
-		})
+			message: `An error occurred. Reason: ${error.message}`,
+		});
 	}
-
 });
 
 //change user's blocked status
 userRouter.post("/block", async (req: Request, res: Response) => {
-	const { userId} = req.body;
+	const { userId } = req.body;
 
 	const user = await User.findById(userId);
 
@@ -193,15 +189,16 @@ userRouter.post("/block", async (req: Request, res: Response) => {
 
 	user.blocked = !user.blocked;
 
-	const filter = {_id: userId};
+	const filter = { _id: userId };
 	await User.updateOne(filter, user);
 
 	res.status(200).json({
 		success: true,
-		message: `Successfully ${user.blocked ? 'blocked' : 'unblocked'} user: ${user.firstname}`
-	})
-
-})
+		message: `Successfully ${
+			user.blocked ? "blocked" : "unblocked"
+		} user: ${user.firstname}`,
+	});
+});
 
 //get all users
 userRouter.get("/all", async (req: Request, res: Response) => {
@@ -209,26 +206,21 @@ userRouter.get("/all", async (req: Request, res: Response) => {
 
 	res.status(200).json({
 		success: true,
-		users: allUsers
+		users: allUsers,
 	});
-})
+});
 
 userRouter.get("/emailtest", async (req, res) => {
 	console.log("starting");
-	try {
-		const info = await icloud.sendMail({
-			from: '"IdeaHubU Platform 👻" <ideahubu@icloud.com>',
-			to: ["nizasichi@icloud.com", "dev.niza@icloud.com"],
-			subject: "Hello ✔ I am from the backend!!",
-			text: "Hello world? I am so tired but happy that this works. I want to sleep... I really do...",
-		});
-
-		console.log("Message sent:", info.messageId);
-		res.status(200).json({ success: true, messageId: info.messageId });
-	} catch (error) {
-		console.error("Error sending email:", error);
-		res.status(500).json({ success: false, error: error });
+	const result = await sendEmail(
+		["nizasichi@Icloud.com", "dev.niza@icloud.com"],
+		"Refactored test",
+		"This is a message"
+	);
+	if (!result.success) {
+		res.status(500).json(result);
 	}
+	res.status(200).json(result);
 });
 
 export default userRouter;
