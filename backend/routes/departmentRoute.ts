@@ -8,4 +8,6 @@ departmentRouter.post("/add", async (req: Request, res: Response) => {
 	// }
 })
 
+
+
 export default departmentRouter

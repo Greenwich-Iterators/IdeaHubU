@@ -35,7 +35,7 @@ userRouter.post("/login", async (req: Request, res: Response) => {
 		}
 
 		// const userId = user._id;
-		const generatedToken = await generateAccessToken(userId);
+		const generatedToken = await generateAccessToken(user);
 		let session = await sessionModel.findOne({ userId });
 		let lastLogin = null;
 		let firstLogin = false;
@@ -93,7 +93,7 @@ userRouter.get("/verifytoken", async (req: Request, res: Response) => {
 			});
 			return;
 		}
-		res.status(200).json({ valid: true, userId: result.userId });
+		res.status(200).json({ valid: true, userId: result.user });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ valid: false, message: "Server error" });
@@ -102,7 +102,7 @@ userRouter.get("/verifytoken", async (req: Request, res: Response) => {
 
 userRouter.post("/register", async (req: Request, res: Response) => {
 	try {
-		const { firstname, lastname, username, email, password } = req.body;
+		const { firstname, lastname, username, email, password, department } = req.body;
 		const userExists = await User.exists({ username });
 		if (userExists) {
 			res.status(409).json({

@@ -59,11 +59,11 @@ error_reporting(0);
 				<option value="design">Design</option>
 			</select>
 			<label for="Department">Department</label>
-			<select id="category" name="category">
-				<option value="innovation">Finance</option>
-				<option value="technology">Economics</option>
-				<option value="design">Literature and Language</option>
-				<option value="design">Human Resources</option>
+			<select id="department" name="department">
+				<option value="finance">Finance</option>
+				<option value="economics">Economics</option>
+				<option value="literatureandlanguage">Literature and Language</option>
+				<option value="humanresources">Human Resources</option>
 			</select>
 			<label for="description">Description</label>
 			<textarea id="description" name="description" rows="4" required></textarea>

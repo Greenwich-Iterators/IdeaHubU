@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import mainRouter from "./router";
-import auth from "./middleware/auth";
 
 // Initialisation of express and mongodb
 const app = express();
@@ -18,14 +17,9 @@ mongoose
 	.then(() => console.log("Connected to MongoDB"))
 	.catch((error) => console.error("MongoDB connection error:", error));
 
-
-
 // API Route Handler
 app.use(express.json());
 app.use("/api", mainRouter);
-
-// Auth Middlware
-app.use(auth);
 
 // Start the server
 app.listen(PORT, () => {

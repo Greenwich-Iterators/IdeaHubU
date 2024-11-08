@@ -9,6 +9,7 @@ export enum Roles {
 	Administrator = "Administrator",
 }
 
+// Whenever you change userSchema, change the verifyToken function
 const userSchema = new mongoose.Schema({
 	firstname: { type: String, required: true },
 	lastname: { type: String, required: true },

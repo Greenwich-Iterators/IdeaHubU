@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import User from "../models/userModel";
 
+const ICLOUD_EMAIL = process.env.ICLOUD_EMAIL;
 const ICLOUD_PASSWORD = process.env.ICLOUD_PASSWORD;
 
 const icloud = nodemailer.createTransport({
@@ -8,7 +9,7 @@ const icloud = nodemailer.createTransport({
 	port: 587,
 	secure: false,
 	auth: {
-		user: "ideahubu@icloud.com",
+		user: ICLOUD_EMAIL,
 		pass: ICLOUD_PASSWORD,
 	},
 	tls: {
@@ -19,7 +20,7 @@ const icloud = nodemailer.createTransport({
 export const sendEmail = async (email: string[], subject: string, body: string) => {
 	try {
 		const info = await icloud.sendMail({
-			from: '"IdeaHubU Platform" <ideahubu@icloud.com>',
+			from: '"IdeaHubU Platform"',
 			to: email,
 			subject: subject,
 			text: body,
