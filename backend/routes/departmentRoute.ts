@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { Department} from '../models/departmentModel'
+import Department from '../models/departmentModel'
 
 const departmentRouter = express.Router();
 
@@ -17,7 +17,7 @@ departmentRouter.get("/get", async (req: Request, res: Response) => {
 	catch(error){
 		res.status(500).json({
 			success: false,
-			error: `An error occurred ${error.message}`
+			error: `An error occurred ${error}`
 		})
 	}
 })

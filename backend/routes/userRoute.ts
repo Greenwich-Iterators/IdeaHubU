@@ -102,7 +102,8 @@ userRouter.get("/verifytoken", async (req: Request, res: Response) => {
 
 userRouter.post("/register", async (req: Request, res: Response) => {
 	try {
-		const { firstname, lastname, username, email, password, department } = req.body;
+		const { firstname, lastname, username, email, password, departmentId } =
+			req.body;
 		const userExists = await User.exists({ username });
 		if (userExists) {
 			res.status(409).json({
@@ -119,6 +120,7 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 			email,
 			password,
 			role: Roles.Staff,
+			departmentId: departmentId,
 		});
 
 		await User.create(newUser);
