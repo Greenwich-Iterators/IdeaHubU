@@ -9,7 +9,7 @@ const ideaSchema = new mongoose.Schema({
 	updatedAt: { type: Date, default: Date.now },
 	comments: [{ type: ObjectId, ref: "Comment" }],
 	anonymousPost: { type: Boolean, default: false },
-	catgoryId: { type: ObjectId, ref: "Category" },
+	categoryId: { type: ObjectId, ref: "Category" },
 	userLikes: [{ type: ObjectId, ref: "User" }],
 	userDislikes: [{ type: ObjectId, ref: "User" }],
 	hidden: { type: Boolean, default: false },
