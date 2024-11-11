@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { staffCheck } from "../utils/authorization";
 import Idea from "../models/ideasModel";
 import User from "../models/userModel";
+import Report from "../models/reportModel";
 
 const ideaRouter = express.Router();
 
@@ -134,7 +135,6 @@ ideaRouter.put("/edit", async (req: Request, res: Response) => {
 			});
 			return;
 		}
-		console.log("I have reached");
 		await Idea.updateOne({ _id: existingIdea._id }, { idea: newIdea });
 
 		res.status(200).json({
@@ -148,5 +148,46 @@ ideaRouter.put("/edit", async (req: Request, res: Response) => {
 		});
 	}
 });
+
+ideaRouter.post("/report", async (req, res) => {
+	const { ideaId, reporterId, reason } = req.body;
+
+	const existingIdea = await Idea.findOne({ _id: ideaId });
+	const existingReporter = await User.findOne({ _id: reporterId });
+	if (!existingIdea) {
+		res.status(404).json({
+			success: false,
+			error: "Couldn't find idea",
+		});
+		return;
+	}
+
+	if (!existingReporter) {
+		res.status(404).json({
+			success: false,
+			error: "Couldn't find User",
+		});
+	}
+
+	const report = new Report({
+		ideaId: ideaId,
+		reporterId: reporterId,
+		reason: reason ?? null,
+	});
+
+	await Idea.create(report);
+
+	res.status(201).json({
+		success: true,
+		message: "Successfully reported the post",
+	});
+});
+
+ideaRouter.get("/reportedlist", async (req, res) => {
+	const reportedIdeas = await Report.find()
+		.populate("reporterId")
+		.populate("ideaId");
+});
+
 
 export default ideaRouter;
