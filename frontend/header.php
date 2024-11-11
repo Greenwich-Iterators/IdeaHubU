@@ -109,10 +109,10 @@
 
                 </div>
 
-                <div id="information"><a href="#"> SERVICES </a> </div>
-                <div id="wall-of-fame"><a href="#"> CONCEPT HUB </a></div>
-                <div id="gallery"><a href="#"> FAQs </a></div>
-                <div id="contact"><a href="contact.php"> CONTACT US </a></div>
+                <div id="information"><a href="./about.php"> ABOUT </a> </div>
+                <div id="wall-of-fame"><a href="./concept-hub.php"> CONCEPT HUB </a></div>
+                <div id="faq"><a href="#"> FAQs </a></div>
+                <div id="contact"><a href="./contact.php"> CONTACT US </a></div>
 
 
             </div>

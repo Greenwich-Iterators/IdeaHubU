@@ -190,7 +190,7 @@
 
 
         <div id='footer-icons'>
-            <p>Social links</p>
+            <p>Our Social links</p>
 
             <ul>
 
@@ -208,7 +208,7 @@
         </div>
 
         <div id="footer-contacts">
-            The University Idea Hub | +260 123 456789 | C3, Platinum street, Leopards Hill Rd
+            The University Idea Hub |<span>+ 260 123 456789</span> | C<span>3</span>, Platinum street, Leopards Hill Rd
             Lusaka.
         </div>
 
@@ -225,8 +225,8 @@
         </div>
 
         <div class="web-designer">
-            <a href="mailto:celestus.nyalugwe@gmail.com?subject = I would like to make an inquiry/get a quotation&body=Hello there, I would like to make an inquiry on your Website design and development services">Website
-                by <span>Iterators group2</span>
+            <a href="#">Website
+                by <span>2024 Group-2 Iterators</span>
             </a>
         </div>
     </div>

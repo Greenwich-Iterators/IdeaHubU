@@ -51,7 +51,7 @@ a {
 	color: white;
 }
 p {
-	font-size: 1.1rem;
+	font-size: 1rem;
 	padding: auto 4px;
 	font-family: "Raleway", sans-serif;
 	color: white;
@@ -492,17 +492,9 @@ footer {
 	position: relative;
 	box-sizing: border-box;
 	display: flex;
-	padding: 1rem;
 	margin: 0;
 	width: 100%;
-	background: linear-gradient(
-			rgba(255, 255, 255, 0.8),
-			rgba(255, 255, 255, 0.8)
-		),
-		url(../images/logo/Unideahub_200px.png);
-	background-size: 150px;
-	background-position: center;
-	background-repeat: no-repeat;
+	background: linear-gradient(45deg, purple, orange);
 }
 
 footer * {
@@ -523,15 +515,14 @@ footer * {
 	justify-content: space-evenly;
 	align-items: center;
 	overflow: hidden;
-	gap: 2rem;
-	padding: 3rem 1rem;
+	gap: 1rem;
+	padding: 1rem;
 	box-sizing: border-box;
 	margin: auto;
-}
-
-#footer-menu div {
-	margin: auto;
-	width: auto;
+	background: url(../images/logo/Unideahub_200px.png);
+	background-size: 150px;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 footer li a {
@@ -605,8 +596,6 @@ footer p {
 
 #footer-icons p {
 	font-weight: 600;
-	text-decoration: underline;
-	text-underline-offset: 2.5px;
 }
 
 #footer-icons ul {
@@ -704,11 +693,6 @@ ul {
 	font-weight: 600;
 }
 
-.useful-links p {
-	text-decoration: underline 1px;
-	text-underline-offset: 2.5px;
-}
-
 .useful-links ul {
 	display: flex;
 	flex-direction: column;
@@ -729,21 +713,21 @@ ul {
 
 .useful-links ul li a {
 	text-transform: capitalize;
-	font-family: arial;
-	font-weight: 100;
+	font-weight: 600;
 	font-size: 0.9em;
-}
-
-.useful-links ul li a::before {
-	content: "> ";
-	font-size: 0.8em;
 }
 
 #footer-contacts {
 	grid-area: footer-contacts;
-	color: #000;
-	font-family: arial;
+	color: #fff;
 	font-size: 0.9em;
+}
+
+#footer-contacts span {
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+		sans-serif;
+	font-weight: 100;
 }
 
 footer li span {
@@ -3159,5 +3143,402 @@ span#copyright {
 		border: 1px solid rgb(255, 165, 0);
 		border-radius: 5px;
 		background: #fff;
+	}
+}
+
+/************************ THE ABOUT PAGE************************ */
+
+#about-page {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	min-height: 100vh;
+	width: 100%;
+	gap: 4rem;
+	margin: auto;
+	text-align: center;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.about-page-wrapper {
+	width: 100%;
+	height: auto;
+	margin: auto;
+	padding: 1em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 4em 1em;
+	margin-bottom: 5em;
+	overflow: hidden;
+	backdrop-filter: blur(8px);
+}
+
+.about-page-wrapper .header-text * {
+	display: block;
+	padding: 1rem;
+	color: #000;
+	width: 90%;
+	max-width: 900px;
+	text-align: justify;
+	margin: auto;
+}
+
+.about-page-wrapper .header-text h1 {
+	text-transform: uppercase;
+	margin: auto;
+	text-align: center;
+}
+
+.quick-info-links {
+	margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	width: 100%;
+	max-width: 1000px;
+	gap: 1rem;
+	padding: 1rem 0.5rem;
+	overflow: hidden;
+}
+
+.quick-info-links ul {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	width: 100%;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.quick-info-links ul li {
+	line-height: 2em;
+	font-weight: 600;
+	min-width: 120px;
+}
+
+.quick-info-links a {
+	width: 100%;
+	color: purple;
+	text-decoration: underline 1px;
+	text-underline-offset: 1.5px;
+}
+
+.trainer-rate-card.info {
+	height: 80vh;
+}
+
+#our-mission,
+#our-vision {
+	min-height: 100vh;
+	width: 100vw;
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#our-mission span,
+#our-vision span {
+	color: purple;
+	font-weight: 600;
+}
+
+#our-mission {
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
+		url(../images/dl.beatsnoop.com-3000-95upnm8qLk.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+}
+
+#our-vision {
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)),
+		url(../images/dl.beatsnoop.com-3000-k7zefIyEB5.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+}
+
+#our-mission p,
+#our-vision p {
+	color: #fff;
+	width: 90%;
+	max-width: 600px;
+	text-align: justify;
+	font-weight: 600;
+}
+
+/*----------- The Faculty members Section--------------- */
+
+.faculty-members-wrapper {
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	width: 100%;
+}
+
+#faculty-members-wrapper h2 {
+	color: #000;
+	text-transform: uppercase;
+}
+
+#faculty-members-wrapper p {
+	text-align: justify;
+	color: #000;
+}
+
+#faculty-members-wrapper span {
+	color: purple;
+	font-weight: 600;
+	padding: 3px 5px;
+	text-align: left;
+}
+
+#faculty-members {
+	margin: auto;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+}
+
+#faculty-members ul {
+	display: grid;
+	gap: 3em 0;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 1em;
+}
+
+#faculty-members ul li {
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+	padding: 1em;
+	text-align: left;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.1);
+}
+
+#faculty-members ul li img {
+	width: 100%;
+	height: 100%;
+	max-height: 300px;
+	object-fit: cover;
+	object-position: 50% 20%;
+}
+
+#faculty-members ul li h4 {
+	margin: 0;
+	color: #000;
+}
+
+#faculty-members ul li span {
+	margin: 0;
+}
+
+#faculty-members p {
+	color: #000;
+}
+/*------------------ The Testimonials Section----------- */
+#testimonials-container {
+	width: 100vw;
+	gap: 1em;
+	display: flex;
+	padding: 2em 0;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient(
+			to bottom,
+			rgba(255, 255, 255, 0.5),
+			5%,
+			rgba(255, 255, 255, 0.1)
+		),
+		url(../images/[fetchpik.com]-high-RZCLB5TeQM.jpg);
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+#testimonials-container h1 {
+	color: purple;
+}
+
+#testimonials-container p {
+	color: #fff;
+}
+.testimonials-wrapper {
+	margin: auto;
+	display: grid;
+	width: 100%;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 300px));
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.testimonials-card {
+	margin: auto;
+	max-width: 240px;
+	height: auto;
+	padding: 0 0.5em;
+	border-radius: 3px;
+	background-color: rgba(0, 0, 0, 0.5);
+	box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.1);
+}
+.testimonials-card span {
+	color: orange;
+	font-weight: 600;
+	font-size: 0.8em;
+	font-style: italic;
+}
+
+/*--------- The Projects section on the About Page */
+
+#projects {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	padding: 1em;
+}
+
+#projects h1 {
+	color: purple;
+}
+#projects p {
+	margin: auto;
+	color: #000;
+	text-align: justify;
+	width: 100%;
+	max-width: 600px;
+	font-size: 0.9em;
+}
+
+#projects ul {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-left: 0;
+	gap: 1em;
+}
+
+#projects ul li {
+	margin: auto;
+	display: grid;
+	width: 100%;
+	max-width: 700px;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 600px));
+	padding: 1em;
+	gap: 1em;
+	border-radius: 3px;
+	font-size: 0.9em;
+}
+
+#projects ul li:nth-child(odd) {
+	background-color: rgba(255, 165, 0, 0.1);
+}
+
+#projects ul li img {
+	width: 100%;
+	height: 100%;
+	max-width: 220px;
+	object-fit: cover;
+}
+
+#projects ul li span {
+	font-weight: 600;
+	color: purple;
+}
+
+/***********SETTINGS FOR IPADS AND TABLETS LARGER THAN 600PX********/
+@media only screen and (min-width: 601px) {
+	.info-main {
+		height: 150px;
+	}
+
+	.about-page-wrapper {
+		padding: 1em 1.55em;
+	}
+
+	#faculty-members ul {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		padding: 1em;
+		gap: 10px;
+		width: 100%;
+	}
+
+	#faculty-members ul li {
+		margin: auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+		text-align: left;
+		max-width: 320px;
+		height: 100%;
+	}
+
+	#faculty-members ul li img {
+		object-fit: cover;
+	}
+
+	#testimonials-container {
+		min-height: 100vh;
+	}
+}
+
+/***********SETTINGS FOR SCREENS LARGER THAN 1024PX********/
+@media only screen and (min-width: 1025px) {
+	#faculty-members-wrapper {
+		max-width: 900px;
+		overflow: hidden;
+	}
+
+	#faculty-members ul {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		max-width: 900px;
+		grid-auto-rows: 1fr;
+		gap: 3em 0;
+		flex-direction: column;
+		justify-content: center;
+		align-items: start;
+		box-sizing: border-box;
+		margin: 0;
+		padding: 1em;
+	}
+
+	#faculty-members ul li {
+		margin: auto;
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		padding: 2em;
+		gap: 2em;
+		text-align: left;
+		width: 90%;
+		max-width: 450px;
+		box-sizing: border-box;
+	}
+	#faculty-members ul li p {
+		width: auto;
 	}
 }
