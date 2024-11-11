@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
 	role: { type: String, enum: Object.values(Roles), required: true },
-	departmentId: { type: ObjectID, ref: "Department" },
+	departmentId: { type: ObjectID, ref: "Department", required: true },
 	blocked: { type: Boolean, default: false },
 });
 

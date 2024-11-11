@@ -3,6 +3,8 @@ import { staffCheck } from "../utils/authorization";
 import Idea from "../models/ideasModel";
 import User from "../models/userModel";
 import Report from "../models/reportModel";
+import Department from "../models/departmentModel";
+import { sendEmail } from "../utils/email";
 
 const ideaRouter = express.Router();
 
@@ -54,6 +56,24 @@ ideaRouter.post("/add", async (req: Request, res: Response) => {
 
 		await Idea.create(newIdea);
 
+		// Send Email to Coordinator
+		const department = await Department.findOne({
+			_id: existingUser.departmentId,
+		});
+		if (department?.coordinator) {
+			const coordinator = await User.findOne({
+				_id: department.coordinator,
+			});
+			if (coordinator?.email) {
+				const sentEmail = await sendEmail(
+					[coordinator.email],
+					"New Idea Posted",
+					idea
+				);
+				console.log(sentEmail);
+			}
+		}
+
 		res.status(200).json({
 			success: true,
 			message: "Successfully added idea",
@@ -75,6 +95,33 @@ ideaRouter.get("/all", async (req: Request, res: Response) => {
 	res.status(200).json({
 		success: true,
 		ideas: allIdeas,
+	});
+});
+
+ideaRouter.get("/departmentIdeas", async (req, res) => {
+	const { departmentId } = req.body;
+	const allIdeas = await Idea.find();
+
+	const departmentIdeas = await Promise.all(
+		allIdeas.map(async (idea) => {
+			const user = await User.findOne({ _id: idea.userId });
+			if (
+				user?.departmentId &&
+				user.departmentId.toString() === departmentId.toString()
+			) {
+				return idea;
+			}
+			return null;
+		})
+	);
+
+	const filteredDepartmentIdeas = departmentIdeas.filter(
+		(idea) => idea !== null
+	);
+
+	res.status(200).json({
+		success: true,
+		departmentIdeas: filteredDepartmentIdeas,
 	});
 });
 
@@ -183,11 +230,18 @@ ideaRouter.post("/report", async (req, res) => {
 	});
 });
 
-ideaRouter.get("/reportedlist", async (req, res) => {
+ideaRouter.get("/reported", async (req, res) => {
 	const reportedIdeas = await Report.find()
 		.populate("reporterId")
 		.populate("ideaId");
+
+	res.status(200).json({
+		success: true,
+		message: "List of reported ideas",
+		reportedIdeas: reportedIdeas,
+	});
 });
 
 
+ideaRouter.get("/contributors", async (req, res) => {});
 export default ideaRouter;

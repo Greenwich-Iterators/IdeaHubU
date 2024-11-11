@@ -2,6 +2,8 @@ import express, { Request, Response } from "express";
 import Idea from "../models/ideasModel";
 import User from "../models/userModel";
 import Comment from "../models/commentModel";
+import Department from "../models/departmentModel";
+import { sendEmail } from "../utils/email";
 
 const commentRoute = express();
 
@@ -49,6 +51,18 @@ commentRoute.post("/add", async (req: Request, res: Response) => {
 			{ _id: ideaId },
 			{ $push: { comments: newComment._id } }
 		);
+
+		// Send Email to Author
+		const author = await User.findOne({ _id: existingIdea.userId });
+
+		if (author?.email) {
+			const sentEmail = await sendEmail(
+				[author.email],
+				"New Comment Posted",
+				content
+			);
+			console.log(sentEmail);
+		}
 
 		res.status(200).json({
 			success: true,
