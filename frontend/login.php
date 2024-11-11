@@ -32,45 +32,55 @@ if (isset($_POST['submit'])) {
 		// Send the request
 		$response = @file_get_contents($url, false, $context);
 
-		if ($response === FALSE) {
-			$message[] = "Error connecting to the server. Please try again later.";
-		} else {
-			$result = json_decode($response, true);
-			$httpCode = $http_response_header[0];
 
-			if (strpos($httpCode, '200') !== false) {
-				// Login successful
-				$_SESSION['token'] = $result['token'];
-				$_SESSION['user_id'] = $result['userId'];
-				$_SESSION['username'] = $result['username'];
-				$_SESSION['role'] = $result['role'];
-				$_SESSION['last_login'] = $result['lastLogin'];
-				$_SESSION['first_login'] = $result['firstLogin'];
+		$result = json_decode($response, true);
+		$httpCode = $http_response_header[0];
 
-				// Save the token in the cookie
-				$cookie_name = "auth_token";
-				$cookie_value = $result['token'];
-				$cookie_expiry = time() + (8 * 3600); // 8 hours, matching the token expiry
-				$cookie_path = "/"; // The cookie will be available within the entire domain
-				$cookie_domain = ""; // Empty string means the current domain
-				$cookie_secure = true; // Send only over HTTPS
-				$cookie_httponly = true; // Make the cookie accessible only through the HTTP protocol
+		if (strpos($httpCode, '200') !== false) {
+			// Login successful
+			$_SESSION['token'] = $result['token'];
+			$_SESSION['user_id'] = $result['userId'];
+			$_SESSION['username'] = $result['username'];
+			$_SESSION['role'] = $result['role'];
+			$_SESSION['last_login'] = $result['lastLogin'];
+			$_SESSION['first_login'] = $result['firstLogin'];
 
-				setcookie($cookie_name, $cookie_value, $cookie_expiry, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly);
-				// Redirect to welcome page
-				header("Location: welcome.php");
-				exit();
-			} elseif (strpos($httpCode, '401') !== false) {
-				// Invalid credentials
-				$message[] = "Invalid credentials. Please try again.";
-			} elseif (strpos($httpCode, '500') !== false) {
-				// Server error
-				$message[] = "Server error. Please try again later.";
-			} else {
-				// Unexpected error
-				$message[] = "An unexpected error occurred. Please try again.";
+			// Save the token in the cookie
+			$cookie_name = "auth_token";
+			$cookie_value = $result['token'];
+			$cookie_expiry = time() + (8 * 3600); // 8 hours, matching the token expiry
+			$cookie_path = "/"; // The cookie will be available within the entire domain
+			$cookie_domain = ""; // Empty string means the current domain
+			$cookie_secure = true; // Send only over HTTPS
+			$cookie_httponly = true; // Make the cookie accessible only through the HTTP protocol
+
+			setcookie($cookie_name, $cookie_value, $cookie_expiry, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly);
+			// Redirect to dashboard page
+			if ($result['role'] == 'Administrator') {
+				header(header: "Location: admin_dashboard.php");
 			}
+			if ($result['role'] == 'Staff') {
+				header(header: "Location: staff_dashboard.php");
+			}
+			if ($result['role'] == 'Manager') {
+				header(header: "Location: manager_dashboard.php");
+			}
+			if ($result['role'] == 'Coordinator') {
+				header(header: "Location: coordinator_dashboard.php");
+			}
+			header(header: "Location: welcome.php");
+			exit();
+		} elseif (strpos($httpCode, '401') !== false) {
+			// Invalid credentials
+			$message[] = "Invalid credentials. Please try again.";
+		} elseif (strpos($httpCode, '500') !== false) {
+			// Server error
+			$message[] = "Server error. Please try again later.";
+		} else {
+			// Unexpected error
+			$message[] = "An unexpected error occurred. Please try again.";
 		}
+
 	} else {
 		$message[] = 'Please enter both email and password.';
 	}

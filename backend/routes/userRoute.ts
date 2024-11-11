@@ -93,7 +93,10 @@ userRouter.get("/verifytoken", async (req: Request, res: Response) => {
 			});
 			return;
 		}
-		res.status(200).json({ valid: true, userId: result.user });
+
+		const user = await User.findOne({ username: result.user?.username });
+
+		res.status(200).json({ valid: true, userId: user?._id });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ valid: false, message: "Server error" });

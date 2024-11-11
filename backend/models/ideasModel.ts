@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const ideaSchema = new mongoose.Schema({
+	ideaTitle: { type: String, required: true },
 	idea: { type: String, required: true },
 	userId: { type: ObjectId, ref: "User", required: true },
 	createdAt: { type: Date, default: Date.now },
@@ -13,6 +14,7 @@ const ideaSchema = new mongoose.Schema({
 	userLikes: { type: [ObjectId], ref: "User" },
 	userDislikes: { type: [ObjectId], ref: "User" },
 	hidden: { type: Boolean, default: false },
+	filename: { type: String, default: null },
 });
 
 export default mongoose.model("Idea", ideaSchema);
