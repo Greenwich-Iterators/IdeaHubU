@@ -242,6 +242,114 @@ ideaRouter.get("/reported", async (req, res) => {
 	});
 });
 
-
 ideaRouter.get("/contributors", async (req, res) => {});
+
+ideaRouter.post("/like", async (req, res) => {
+	try {
+		const { ideaId, userId } = req.body;
+
+		if (!ideaId || !userId) {
+			res.status(400).json({
+				success: false,
+				error: "Missing ideaId or userId",
+			});
+			return;
+		}
+
+		const existingIdea = await Idea.findById(ideaId);
+
+		if (!existingIdea) {
+			res.status(404).json({
+				success: false,
+				error: "Idea not found",
+			});
+			return;
+		}
+
+		// Check if user has already liked the idea
+		if (existingIdea.userLikes.includes(userId)) {
+			res.status(400).json({
+				success: false,
+				error: "User has already liked this idea",
+			});
+			return;
+		}
+
+		// Add user to likes and remove from dislikes if present
+		const updated = await Idea.findByIdAndUpdate(
+			ideaId,
+			{
+				$addToSet: { userLikes: userId },
+				$pull: { userDislikes: userId },
+			},
+			{ new: true }
+		);
+
+		res.status(200).json({
+			success: true,
+			message: "Idea liked successfully",
+			updatedIdea: updated,
+		});
+	} catch (error: any) {
+		res.status(500).json({
+			success: false,
+			error: `An error occurred. Reason: ${error.message}`,
+		});
+	}
+});
+
+ideaRouter.post("/dislike", async (req, res) => {
+	try {
+		const { ideaId, userId } = req.body;
+
+		if (!ideaId || !userId) {
+			res.status(400).json({
+				success: false,
+				error: "Missing ideaId or userId",
+			});
+			return;
+		}
+
+		const existingIdea = await Idea.findById(ideaId);
+
+		if (!existingIdea) {
+			res.status(404).json({
+				success: false,
+				error: "Idea not found",
+			});
+			return;
+		}
+
+		// Check if user has already disliked the idea
+		if (existingIdea.userDislikes.includes(userId)) {
+			res.status(400).json({
+				success: false,
+				error: "User has already disliked this idea",
+			});
+			return;
+		}
+
+		// Add user to dislikes and remove from likes if present
+		const updated = await Idea.findByIdAndUpdate(
+			ideaId,
+			{
+				$addToSet: { userDislikes: userId },
+				$pull: { userLikes: userId },
+			},
+			{ new: true }
+		);
+
+		res.status(200).json({
+			success: true,
+			message: "Idea disliked successfully",
+			updatedIdea: updated,
+		});
+	} catch (error: any) {
+		res.status(500).json({
+			success: false,
+			error: `An error occurred. Reason: ${error.message}`,
+		});
+	}
+});
+
 export default ideaRouter;
