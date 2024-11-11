@@ -4,6 +4,7 @@ import Idea from "../models/ideasModel";
 import User from "../models/userModel";
 import Report from "../models/reportModel";
 import Department from "../models/departmentModel";
+import Comment from "../models/commentModel";
 import { sendEmail } from "../utils/email";
 
 const ideaRouter = express.Router();
@@ -343,6 +344,87 @@ ideaRouter.post("/dislike", async (req, res) => {
 			success: true,
 			message: "Idea disliked successfully",
 			updatedIdea: updated,
+		});
+	} catch (error: any) {
+		res.status(500).json({
+			success: false,
+			error: `An error occurred. Reason: ${error.message}`,
+		});
+	}
+});
+
+ideaRouter.get("/popular", async (req: Request, res: Response) => {
+	try {
+		const popularIdeas = await Idea.find()
+			.sort({ "userLikes.length": -1 })
+			.limit(5)
+			.populate("userId", "username")
+			.populate("categoryId", "name");
+
+		res.status(200).json({
+			success: true,
+			popularIdeas: popularIdeas,
+		});
+	} catch (error: any) {
+		res.status(500).json({
+			success: false,
+			error: `An error occurred. Reason: ${error.message}`,
+		});
+	}
+});
+
+ideaRouter.get("/mostViewed", async (req: Request, res: Response) => {
+	try {
+		const mostViewedIdeas = await Idea.find()
+			.sort({ views: -1 })
+			.limit(5)
+			.populate("userId", "username")
+			.populate("categoryId", "name");
+
+		res.status(200).json({
+			success: true,
+			mostViewedIdeas: mostViewedIdeas,
+		});
+	} catch (error: any) {
+		res.status(500).json({
+			success: false,
+			error: `An error occurred. Reason: ${error.message}`,
+		});
+	}
+});
+
+ideaRouter.get("/latest", async (req: Request, res: Response) => {
+	try {
+		const latestIdeas = await Idea.find()
+			.sort({ createdAt: -1 })
+			.limit(5)
+			.populate("userId", "username")
+			.populate("categoryId", "name");
+
+		res.status(200).json({
+			success: true,
+			latestIdeas: latestIdeas,
+		});
+	} catch (error: any) {
+		res.status(500).json({
+			success: false,
+			error: `An error occurred. Reason: ${error.message}`,
+		});
+	}
+});
+
+// Get latest comments
+ideaRouter.get("/latestComments", async (req: Request, res: Response) => {
+	try {
+		const latestComments = await Comment.find()
+			.sort({ createdAt: -1 })
+			.limit(5)
+			.populate("userId", "username")
+			.populate("ideaId", "idea");
+
+		res.status(200).json({
+			success: true,
+			latestComments: latestComments,
 		});
 	} catch (error: any) {
 		res.status(500).json({
