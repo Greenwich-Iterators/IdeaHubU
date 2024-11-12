@@ -148,7 +148,7 @@ if ($categoriesResponse && isset($categoriesResponse['success']) && $categoriesR
 	<div class="idea-wrapper">
 
 
-
+	
 		<!-- The Submissions Guidelines Section -->
 		<div id="main-submission-guidelines">
 			<h1>Submission Guidelines</h1>
