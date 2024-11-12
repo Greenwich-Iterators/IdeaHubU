@@ -60,34 +60,37 @@ $ideasResponse = json_decode($ideasResult, true);
 
 
 <div id="ideas-page">
-    <?php
-    if (isset($ideasResponse['success']) && $ideasResponse['success'] && isset($ideasResponse['ideas'])) {
-        foreach ($ideasResponse['ideas'] as $idea) {
-            ?>
-            <div class="idea-card">
-                <h3><?php echo htmlspecialchars($idea['ideaTitle']); ?></h3>
-                <p><?php echo htmlspecialchars($idea['ideaDescription']); ?></p>
-                <p>Posted by:
-                    <?php
-                    if (isset($idea['anonymousPost']) && $idea['anonymousPost']) {
-                        echo "Anonymous";
-                    } elseif (isset($idea['userId']) && isset($idea['userId']['firstname']) && isset($idea['userId']['lastname'])) {
-                        echo htmlspecialchars($idea['userId']['firstname'] . ' ' . $idea['userId']['lastname']);
-                    } else {
-                        echo "Unknown";
-                    }
-                    ?>
-                </p>
-                <p>Created at: <?php echo date('Y-m-d H:i:s', strtotime($idea['createdAt'])); ?></p>
-                <p>Likes: <?php echo count($idea['userLikes']); ?></p>
-                <p>Dislikes: <?php echo count($idea['userDislikes']); ?></p>
-            </div>
-            <?php
+    <div class="ideas-card">
+        <?php
+        if (isset($ideasResponse['success']) && $ideasResponse['success'] && isset($ideasResponse['ideas'])) {
+            foreach ($ideasResponse['ideas'] as $idea) {
+                ?>
+                <div class="idea-card">
+                    <h3><?php echo htmlspecialchars($idea['ideaTitle']); ?></h3>
+                    <p><?php echo htmlspecialchars($idea['ideaDescription']); ?></p>
+                    <p>Posted by:
+                        <?php
+                        if (isset($idea['anonymousPost']) && $idea['anonymousPost']) {
+                            echo "Anonymous";
+                        } elseif (isset($idea['userId']) && isset($idea['userId']['firstname']) && isset($idea['userId']['lastname'])) {
+                            echo htmlspecialchars($idea['userId']['firstname'] . ' ' . $idea['userId']['lastname']);
+                        } else {
+                            echo "Unknown";
+                        }
+                        ?>
+                    </p>
+                    <p>Created at: <?php echo date('Y-m-d H:i:s', strtotime($idea['createdAt'])); ?></p>
+                    <p>Likes: <?php echo count($idea['userLikes']); ?></p>
+                    <p>Dislikes: <?php echo count($idea['userDislikes']); ?></p>
+                </div>
+                <?php
+            }
+        } else {
+            echo "<p>No ideas found or there was an error fetching the ideas.</p>";
         }
-    } else {
-        echo "<p>No ideas found or there was an error fetching the ideas.</p>";
-    }
-    ?>
+        ?>
+    </div>
+
     <!-- <div class="search-container">
         <form class='search-form' method="post">
 
