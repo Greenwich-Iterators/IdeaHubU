@@ -119,6 +119,8 @@ if (isset($_POST['submit'])) {
 					value="<?php echo $email; ?>" required>
 			</div><br><br>
 
+			<!-- Select Department -->
+
 			<div><label for="password"></label>
 				<input type="password" id="password" name="password" min-length="" class="signup-inputs"
 					placeholder="Enter password" value="<?php echo $_POST['password']; ?>" required minlength="6"
