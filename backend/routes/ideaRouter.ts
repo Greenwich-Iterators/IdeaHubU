@@ -13,9 +13,16 @@ ideaRouter.post("/add", async (req: Request, res: Response) => {
 	// staffCheck(req, res);
 
 	try {
-		const { idea, userId, anonymousPost, categoryId } = req.body;
+		const {
+			ideaTitle,
+			ideaDescription,
+			userId,
+			anonymousPost,
+			categoryId,
+			filename = null,
+		} = req.body;
 
-		if (!idea) {
+		if (!ideaTitle && ideaDescription) {
 			res.status(400).json({
 				success: false,
 				error: "Idea cannot be empty",
@@ -49,10 +56,12 @@ ideaRouter.post("/add", async (req: Request, res: Response) => {
 		}
 
 		const newIdea = new Idea({
-			idea: idea,
+			ideaTitle: ideaTitle,
+			ideaDescription: ideaDescription,
 			userId: userId,
 			categoryId: categoryId ?? null,
 			anonymousPost: anonymousPost ?? false,
+			filename: filename,
 		});
 
 		await Idea.create(newIdea);
@@ -68,8 +77,8 @@ ideaRouter.post("/add", async (req: Request, res: Response) => {
 			if (coordinator?.email) {
 				const sentEmail = await sendEmail(
 					[coordinator.email],
-					"New Idea Posted",
-					idea
+					`New Idea Posted: ${ideaTitle}`,
+					ideaDescription
 				);
 				console.log(sentEmail);
 			}

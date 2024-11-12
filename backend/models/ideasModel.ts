@@ -4,7 +4,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const ideaSchema = new mongoose.Schema({
 	ideaTitle: { type: String, required: true },
-	idea: { type: String, required: true },
+	ideaDescription: { type: String, required: true },
 	userId: { type: ObjectId, ref: "User", required: true },
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now },
