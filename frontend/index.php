@@ -70,7 +70,7 @@ error_reporting(1)
 			</p>
 
 			<button>
-				<a href="#">Learn More</a>
+				<a href="./about.php#our-mission">Learn More</a>
 			</button>
 
 
@@ -92,7 +92,7 @@ error_reporting(1)
 			</p>
 
 			<button>
-				<a href="#">Learn More</a>
+				<a href="./about.php#our-vision">Learn More</a>
 			</button>
 
 
@@ -110,7 +110,7 @@ error_reporting(1)
 
 			</p>
 			<ul>
-				<li><strong>Format:</strong> Please submit your contributions as a Word document or PDF. Artwork should be in high-resolution JPEG or PNG format.</li>
+				<li><strong>Format:</strong> Please submit your contributions as a PDF document. </li>
 				<li>
 					<strong>Word Limit:</strong> Articles should be between 500-1,500 words; poetry pieces should be no more than 40 lines; artwork should be accompanied by a brief description.
 				</li>
@@ -120,7 +120,7 @@ error_reporting(1)
 			</ul>
 
 			<button>
-				<a href="./#">Learn More</a>
+				<a href="./submissions.php#main-submission-guidelines">Learn More</a>
 			</button>
 
 		</div>

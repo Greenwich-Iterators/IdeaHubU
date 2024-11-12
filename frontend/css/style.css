@@ -70,7 +70,7 @@ h3,
 h4 {
 	/* font-family: 'Playfair Display', serif; */
 	font-family: "Raleway", sans-serif;
-	color: white;
+	/* color: white; */
 }
 
 header {
@@ -804,11 +804,12 @@ footer li span {
 		width: 30vw;
 		margin: 0;
 		color: white;
-		overflow-y: scroll;
-		height: 120vh;
+		overflow-y: auto;
+		min-height: 50vh;
 	}
 
 	#sidebar-nav.active div {
+		height: 3em;
 		position: relative;
 		opacity: 1;
 		display: block;
@@ -1270,13 +1271,7 @@ footer li span {
 	padding: 0;
 	transition: all ease-out 0.5s;
 	right: 0vw;
-	/* overflow: hidden;
-  background: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
-    url(../images/library.jpg);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed; */
+	justify-content: center;
 }
 
 .search-bar-container {
@@ -1840,6 +1835,7 @@ span#copyright {
 .ideas_wrapper {
 	display: grid;
 	justify-content: center;
+	margin: auto;
 	align-items: start;
 	text-align: justify;
 	gap: 1em;
@@ -2344,88 +2340,6 @@ span#copyright {
 		padding-bottom: 100px;
 	}
 
-	.intro-section .product-tabs-container {
-		display: grid;
-		grid-template-columns: repeat(3, 31%);
-		grid-template-rows: auto;
-		width: 100%;
-		max-width: 1140px;
-		gap: 25px 20px;
-		align-items: center;
-		justify-content: center;
-		overflow: hidden;
-		box-sizing: border-box;
-		padding: 0.5rem;
-	}
-
-	.product-tabs-container .product-tabs {
-		height: 500px;
-	}
-
-	.product-tabs .images {
-		position: relative;
-		max-width: 350px;
-		height: 100%;
-	}
-
-	.intro-section #learn-more {
-		width: 100%;
-		position: absolute;
-		height: 5%;
-		font-weight: normal;
-		top: 95%;
-		opacity: 0;
-	}
-
-	.intro-section #learn-more a {
-		width: 100%;
-	}
-
-	.product-tabs .tile-header {
-		overflow: hidden;
-		z-index: 1;
-		height: 80%;
-		background-color: rgba(0, 0, 0, 0.2);
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		max-width: 340px;
-	}
-
-	.product-tabs .tile-header h3 {
-		display: flex;
-		flex-direction: column;
-		width: inherit;
-		font-size: 2.2rem;
-	}
-
-	.product-tabs .images {
-		width: 100%;
-		max-width: 340px;
-		height: 100%;
-		margin: auto;
-		overflow: hidden;
-	}
-
-	#featured-products {
-		display: flex;
-		flex-wrap: wrap;
-		width: 100%;
-		max-width: 1080px;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 15px;
-		margin: 15px auto;
-		padding: 0 0 80px;
-	}
-
-	#featured-products h2 {
-		width: 100%;
-		grid-column-start: 1;
-		grid-column-end: 3;
-	}
-
 	/******* The Ideas section on the homepage *******/
 
 	.homepage_ideas {
@@ -2512,7 +2426,9 @@ span#copyright {
 	justify-content: center;
 	align-items: center;
 	position: relative;
-	height: 100vh;
+	min-height: 100vh;
+	height: auto;
+	padding: 3em 1em;
 	width: 100%;
 }
 
@@ -2565,7 +2481,7 @@ span#copyright {
 	position: absolute;
 	top: -2%;
 	left: -3%;
-	border: 1px solid rgba(0, 139, 139, 0.6);
+	border: 1px solid rgba(128, 0, 128, 0.6);
 	box-shadow: 0px 0px 15px;
 	border-radius: 50%;
 }
@@ -3267,6 +3183,11 @@ span#copyright {
 	background-attachment: fixed;
 }
 
+#our-mission h2,
+#our-vision h2 {
+	color: #fff;
+}
+
 #our-mission p,
 #our-vision p {
 	color: #fff;
@@ -3541,4 +3462,1278 @@ span#copyright {
 	#faculty-members ul li p {
 		width: auto;
 	}
+}
+
+/********** The Concept Hub page *****************/
+
+#ideas-page {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 1em;
+	width: 100%;
+	gap: 2em;
+	padding: 2em 1em;
+	/* background-image: linear-gradient(
+			rgba(255, 255, 255, 0.5),
+			rgba(255, 255, 255, 0.7)
+		),
+		url(../images/dl.beatsnoop.com-3000-oEnUSq0Zlw.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 40%;
+	background-attachment: fixed; */
+}
+
+#ideas-page .title-text {
+	display: flex;
+	flex-direction: column;
+	justify-self: center;
+	align-items: center;
+	width: 100%;
+}
+
+#ideas-page .title-text h3 {
+	color: purple;
+}
+
+#ideas-page .title-text p {
+	color: #000;
+	margin: auto;
+	width: 80%;
+	max-width: 800px;
+	text-align: justify;
+	font-weight: 600;
+	font-size: 0.9em;
+}
+
+/* ----------The Search form---------------  */
+.search-container {
+	width: 95%;
+	max-width: 900px;
+	margin: 10px auto;
+	padding: 0;
+	overflow: hidden;
+}
+
+.search-form {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+	padding: 2px;
+	gap: 5px;
+	width: 100%;
+	max-width: 800px;
+}
+
+.search-form input {
+	flex: 2;
+	background-color: rgba(0, 0, 0, 0.1);
+	height: 40px;
+	padding: 2px 5px;
+	width: 100%;
+	margin: auto;
+	outline: 2px purple;
+}
+
+.search-form input::placeholder {
+	width: 100%;
+	font-weight: 600;
+	font-family: "Raleway", sans-serif;
+	color: gray;
+}
+
+select#categoryFilter,
+select#timeFilter {
+	color: rgba(0, 0, 0, 0.9);
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	height: 40px;
+	padding: 2px 10px;
+	background-color: transparent;
+	border-radius: 0;
+}
+
+.search-form select {
+	padding: 8px;
+	border-radius: 5px;
+	border: 1px solid red;
+}
+
+.search-form .search-btn {
+	background: transparent;
+	cursor: pointer;
+	align-self: end;
+}
+
+.search-form .search-btn::before {
+	font-family: "font awesome 5 free";
+	font-weight: 600;
+	font-size: 1.5em;
+	content: "\f002";
+	color: purple;
+	padding: 0;
+}
+
+.search-results-text {
+	font-weight: 600;
+	margin: 0 0;
+	padding: 5px;
+	line-height: normal;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* -----------The Tabs with the different Categories---------------- */
+
+.tabs {
+	display: flex;
+	justify-content: center;
+	gap: 15px;
+	margin: 20px 0;
+}
+
+.tabs button {
+	padding: 10px 1em;
+	border: none;
+	cursor: pointer;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
+}
+
+.tabs button:hover,
+.tabs button.active {
+	background-color: rgba(128, 0, 128, 0.8);
+	color: #fff;
+	transition: all 0.3s ease-in-out;
+}
+
+/* Main Container of the Ideas */
+
+#ideasContainer {
+	display: grid;
+	justify-content: center;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 280px));
+	width: 100%;
+	gap: 20px;
+}
+
+.category {
+	width: 100%;
+	padding: 1em;
+	backdrop-filter: blur(2px);
+	border-radius: 4px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1em;
+}
+
+.category:nth-child(even) {
+	background-color: rgba(255, 166, 0, 0.208);
+}
+
+.category:nth-child(odd) {
+	background-color: rgba(128, 0, 128, 0.232);
+}
+.category h2 {
+	color: #000;
+}
+
+.category h3 {
+	color: #000;
+	font-size: 0.8em;
+}
+
+.category p {
+	font-size: 0.8em;
+}
+
+.ideas-grid {
+	display: flex;
+	gap: 1em;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 100%;
+}
+
+.idea-card {
+	width: 220px;
+	height: min-content;
+	padding: 15px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	background-color: rgba(255, 255, 255, 0.3);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+	transition: box-shadow 0.3s ease;
+	cursor: none;
+}
+
+.idea-card:hover {
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+.idea-card p {
+	color: #000;
+}
+
+/* The Side Column with stats */
+
+aside {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	width: 220px;
+	padding: 1em;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	background-color: #f9f9f9;
+	color: #000;
+}
+
+aside h3 {
+	color: purple;
+	margin-bottom: 10px;
+}
+
+aside p {
+	color: #000;
+}
+
+aside ul {
+	padding-left: 0;
+}
+
+.load-more {
+	display: block;
+	margin: 20px auto;
+	padding: 10px 20px;
+	background-color: rgba(128, 0, 128, 0.8);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.load-more:hover {
+	background-color: rgba(128, 0, 128);
+}
+
+/**************** THE CONTACT US PAGE ******************/
+
+#contact-page {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100%;
+	width: 100%;
+	text-align: center;
+	background: linear-gradient(
+			rgba(255, 255, 255, 0.1),
+			rgba(255, 255, 255, 0.2)
+		),
+		url(../images/dl.beatsnoop.com-3000-xOGJRnrHyD.jpg);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+#contact-page {
+	font-family: "Raleway", sans-serif;
+}
+.page-content-wrapper {
+	min-height: 100%;
+	width: 100%;
+	margin: auto;
+	overflow: hidden;
+}
+
+.contactpage {
+	color: #000;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 90%;
+	height: auto;
+	grid-gap: 1rem;
+	margin: auto;
+	padding: 0;
+	padding-bottom: 2rem;
+	overflow: hidden;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.contactpage * {
+	font-family: "Raleway", sans-serif;
+}
+
+#contactpage-hdr {
+	text-transform: uppercase;
+	grid-area: contact-hdr;
+	color: #000;
+}
+
+#contactpage-hdr span,
+#contact-us-hdr span {
+	color: purple;
+}
+
+#contactpage-hdr p {
+	font-size: 0.9rem;
+	color: #000;
+}
+
+/*****-------------The Contact Form-------------*****/
+
+#contact-us-form {
+	grid-area: contact-form;
+	position: relative;
+	display: block;
+	width: 100%;
+	max-width: 600px;
+	height: auto;
+	margin: 0 auto;
+	overflow: hidden;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	text-align: center;
+	padding: 1rem;
+	background-color: rgba(255, 255, 255, 0.6);
+	color: #000;
+}
+
+#contact-us-hdr h3 {
+	font-size: 1.1rem;
+	letter-spacing: normal;
+	margin: 1rem auto 2rem auto;
+}
+
+.inputBox-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	padding-bottom: 3rem;
+}
+
+#contact-us-hdr p {
+	color: #000;
+}
+
+#contact-us-form .inputBox {
+	position: relative;
+	font-size: 0.9rem;
+	width: 90%;
+	margin: auto;
+	border: 5px solid rgba(255, 255, 255, 0);
+	border-radius: 5px;
+	outline: none;
+	resize: none;
+	box-sizing: border-box;
+	border: 1px solid purple;
+}
+
+#contact-us-form .inputBox input,
+#contact-us-form .inputBox textarea {
+	color: darkslategray;
+	font-size: 1rem;
+	width: 100%;
+	height: 100%;
+	padding: 0.5rem;
+	resize: none;
+	outline: none;
+	background-color: rgba(255, 255, 255, 0.1);
+	border: solid 3px rgba(255, 255, 255, 0);
+	border-radius: 2px;
+}
+
+#contact-us-form .inputBox input[type="text"],
+#contact-us-form .inputBox textarea[type="text"] {
+	color: darkslategray;
+	font-weight: 600;
+}
+
+#contact-us-form .inputBox textarea {
+	height: 280px;
+	font-size: 0.9rem;
+}
+
+#contact-us-form .inputBox span {
+	position: absolute;
+	font-size: 1em;
+	color: darkslategray;
+	font-weight: 600;
+	top: 1rem;
+	left: 10px;
+	pointer-events: none;
+	-webkit-transition: 0.5s ease;
+	-o-transition: 0.5s ease;
+	transition: 0.5s ease;
+	outline: none;
+	width: inherit;
+	height: inherit;
+	text-align: left;
+	overflow: hidden;
+}
+
+#contact-us-form .inputBox input:focus ~ span,
+#contact-us-form .inputBox input:valid ~ span,
+#contact-us-form .inputBox textarea:focus ~ span,
+#contact-us-form .inputBox textarea:valid ~ span {
+	color: rgba(0, 0, 0, 0.3);
+	font-size: 0.9rem;
+	transform: translateY(-2rem);
+	outline: none;
+	border: none;
+}
+
+#contact-us-form .inputBox input:focus:invalid ~ {
+	background-color: rgba(255, 0, 0, 0.5);
+}
+
+#contact-us-form .inputBox input:focus:invalid ~ span {
+	transform: translateY(-2rem);
+	color: red;
+}
+
+.inputBox::placeholder {
+	width: 100%;
+	font-weight: 600;
+	font-family: "Raleway", sans-serif;
+	color: white;
+}
+
+#contact-us-form .buttonz {
+	height: 36px;
+	width: 90%;
+	padding: 2px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	text-align: center;
+	margin: auto;
+}
+
+#contact-us-form button#submit-btn,
+#contact-us-form button#reset-btn {
+	display: -webkit-inline-box;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	position: relative;
+	margin: auto;
+	color: darkslategray;
+	font-size: 0.9em;
+	line-height: 0.9em;
+	border: none;
+	width: 150px;
+	height: 30px;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	border-radius: 3px;
+	background-color: rgba(255, 255, 255, 0.6);
+	outline: none;
+}
+
+#contact-us-form button#submit-btn {
+	background-color: rgba(128, 0, 128, 0.2);
+	border: 1px solid rgba(128, 0, 128);
+	color: purple;
+	font-weight: 600;
+}
+
+#contact-us-form button#submit-btn span,
+#contact-us-form #reset-btn span {
+	font-size: 1em;
+	text-align: center;
+	margin: auto;
+	line-height: 20px;
+	font-weight: 600;
+}
+
+#contact-us-form button#submit-btn:hover {
+	background-color: rgba(128, 0, 128, 0.678);
+	border: 1px solid #fff;
+	color: darkslategray;
+	transition: 0.2s ease-out;
+	cursor: pointer;
+}
+
+#contact-us-form button#reset-btn:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+	border: 1px solid #fff;
+	transition: 0.2s ease-out;
+	cursor: pointer;
+}
+
+/*css for alert messages*/
+
+#alert-area {
+	grid-area: alerts;
+	width: 100%;
+	height: auto;
+	z-index: 30;
+	overflow: hidden;
+	text-align: center;
+	margin: auto;
+}
+
+.alert-success,
+.alert-error {
+	width: 99%;
+	height: auto;
+	font-family: "open sans";
+	margin: auto;
+	padding: 3 0;
+}
+
+.alert-success {
+	background-color: rgba(0, 250, 100, 0.6);
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	border-radius: 3px;
+}
+
+.alert-error {
+	background-color: rgba(255, 105, 0, 0.5);
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	border-radius: 3px;
+}
+
+.alert-success span,
+.alert-error span {
+	color: #000;
+	font-weight: 590;
+	line-height: normal;
+	background: none;
+	font-size: 1rem;
+}
+
+/* The Section with Contact Tiles */
+
+.contactpage .contact-info {
+	grid-area: contact-card;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin: auto;
+}
+
+.contact-info .contactitems {
+	min-height: 250px;
+	width: 100%;
+	display: flex;
+	padding: 1rem;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin: auto;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.6);
+	border: 1px solid purple;
+}
+
+.contactitems .fa-brands,
+.contactitems .fa,
+.contactitems .far,
+.contactitems .fas,
+.location .fa-solid {
+	font-size: 1.5rem;
+	margin: 5px;
+	line-height: 2rem;
+	color: #000;
+}
+
+.contact-info .contactitems h4,
+.location h4 {
+	color: purple;
+	margin: 15px;
+}
+
+.contactitems p,
+.contactitems a {
+	font-size: 0.9rem;
+	font-weight: 600;
+	padding: 5px;
+	color: #000;
+}
+
+.location {
+	grid-area: contact-map;
+	min-height: 250px;
+	display: flex;
+	padding: 1rem;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin: auto;
+	text-align: center;
+	background-color: rgba(255, 255, 255, 0.6);
+}
+
+.location p {
+	color: darkslategray;
+}
+
+/* The Map Location section */
+
+.location {
+	width: 100%;
+}
+/* The google map */
+
+.google-pin {
+	position: relative;
+	padding: 1rem;
+	height: 250px;
+	width: 100%;
+}
+
+.google-pin iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/**********The privacy Policy Section**********/
+
+.open-privacy-policy {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	font-size: 0.8rem;
+	font-weight: 600;
+	background-color: rgba(255, 255, 255, 0);
+	border-radius: 30px;
+	transition: 0.3s ease;
+	width: 100%;
+}
+
+.open-privacy-policy p {
+	color: darkslategray;
+	font-size: 0.8rem;
+}
+
+.open-privacy-policy span {
+	color: rgb(100, 149, 237);
+}
+
+.open-privacy-policy:hover {
+	font-weight: 600;
+	cursor: pointer;
+	transition: 0.2s ease;
+}
+
+.privacy-policy-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 0;
+	margin: auto;
+	background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.5));
+	box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.8), 0 0 15px 2px rgba(0, 0, 0, 0.5);
+	padding: 50px;
+	border-radius: 5px;
+	opacity: 0;
+	position: fixed;
+	top: 100px;
+	left: 0;
+	pointer-events: none;
+	position: fixed;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.privacy-policy-container.show {
+	z-index: 99;
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.privacy-policy-body {
+	background: rgba(255, 255, 255, 1);
+	height: auto;
+	width: 100%;
+	border-radius: 5px;
+	padding: 10px 20px;
+}
+
+.close-privacy-policy#close {
+	background-color: rgba(128, 0, 128, 0);
+	color: purple;
+	font-weight: 600;
+	padding: 3px 10px;
+	font-family: "Raleway", sans-serif;
+	border-bottom: 2px solid;
+}
+
+.close-privacy-policy#close:hover {
+	background-color: rgba(128, 0, 128, 0.7);
+	cursor: pointer;
+	transition: 0.3s ease;
+	color: darkslategray;
+	font-weight: 600;
+	border-radius: 4px;
+}
+
+/************** FOR TABLETS AND IPAD DEVICES********************/
+/****************************************************************/
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+	.contactpage {
+		height: 100%;
+		gap: 1rem;
+		margin: auto;
+		padding: 10px;
+		padding-bottom: 2rem;
+		overflow: hidden;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	#contact-us-form {
+		grid-area: contact-form;
+		position: relative;
+		display: block;
+		width: 100%;
+		height: auto;
+		margin: 0 auto;
+		overflow: hidden;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		text-align: center;
+		padding: 1rem;
+	}
+	/* The Section with Contact Tiles */
+
+	.contactpage .contact-info {
+		grid-area: contact-card;
+		display: grid;
+		justify-content: space-between;
+		align-items: center;
+		grid-template-columns: repeat(2, 1fr);
+		height: auto;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		overflow: hidden;
+		margin: auto;
+		width: 600px;
+		gap: 5px 2px;
+	}
+
+	.contact-info .contactitems {
+		min-height: 250px;
+		display: flex;
+		width: 295px;
+		padding: 1rem;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		overflow: hidden;
+		margin: auto;
+		text-align: center;
+	}
+	/* The Map Location section */
+
+	.location {
+		width: 100%;
+		max-width: 600px;
+		height: auto;
+	}
+	/* The google map */
+
+	.google-pin {
+		position: relative;
+		padding: 1rem;
+		height: 250px;
+		width: 100%;
+	}
+
+	.google-pin iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+/************** FOR LAPTOPS AND DESKTOPS DEVICES********************/
+/****************************************************************/
+
+@media only screen and (min-width: 1025px) {
+	.contactpage {
+		display: grid;
+		grid-template-columns: repeat(70%, 30%);
+		grid-auto-rows: fr;
+		grid-template-areas:
+			"contact-form contact-card"
+			"contact-form contact-card"
+			"contact-map contact-map";
+		justify-content: center;
+		align-items: stretch;
+		width: 80%;
+		height: auto;
+		gap: 1rem;
+		margin: auto;
+		padding: 0;
+		padding-bottom: 2rem;
+		overflow: hidden;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	.contactpage .contact-info {
+		grid-area: contact-card;
+		display: grid;
+		justify-content: center;
+		align-items: center;
+		grid-template-columns: 100%;
+		height: auto;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		overflow: hidden;
+		margin: auto;
+		width: 300px;
+		gap: 5px 2px;
+	}
+
+	.contact-info .contactitems {
+		min-height: 250px;
+		display: flex;
+		width: 295px;
+		padding: 1rem;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		overflow: hidden;
+		margin: auto;
+		text-align: center;
+	}
+	/* The Map Location section */
+
+	.location {
+		width: 100%;
+		width: 100%;
+		height: auto;
+	}
+
+	.location p {
+		line-height: 1.5rem;
+	}
+	/* The google map */
+
+	.google-pin {
+		position: relative;
+		padding: 1rem;
+		height: 300px;
+		width: 100%;
+	}
+
+	.google-pin iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	#contact-us-form .inputBox textarea {
+		height: 200px;
+		font-size: 0.9rem;
+	}
+}
+
+/*********************The ADMIN DASHBOARD **************** */
+
+#admin-dashboard-page {
+	position: relative;
+	background: linear-gradient(
+			rgba(255, 255, 255, 0.3),
+			rgba(255, 255, 255, 0.5)
+		),
+		url(../images/dl.beatsnoop.com-3000-ButNvlV0Gz.jpg);
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.dashboard-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	position: relative;
+	min-height: 100vh;
+	padding: 1em 1em 4em;
+	gap: 1em;
+	backdrop-filter: blur(2px);
+}
+
+.dashboard-wrapper h3,
+.dashboard-wrapper p {
+	color: #fff;
+	font-weight: 600;
+}
+
+/* ----The User Login Details---- */
+.dashboard-section {
+	display: grid;
+	flex-direction: column;
+	width: 100%;
+	padding: 1em;
+}
+
+.user_info {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 10px;
+	justify-content: left;
+	align-items: center;
+	width: 100%;
+}
+
+.user_info label {
+	display: flex;
+	align-items: center;
+	text-align: left;
+	font-weight: 600;
+	font-size: 0.9em;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	padding: 5px 1em;
+	color: #fff;
+}
+/*--------- The dashboard Navigation menu---------- */
+
+.dashboard-wrapper nav {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.nav-links {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 1em;
+	width: 100%;
+}
+
+.nav-links a {
+	padding: 1em;
+	text-align: left;
+	color: purple;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	transition: 0.2s ease;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 4px;
+}
+
+.nav-links a:hover {
+	color: #fff;
+	background: rgb(128, 0, 128);
+}
+
+/*********************The COORDINATOR DASHBOARD **************** */
+
+#coordinator-dashboard-page {
+	position: relative;
+	background: linear-gradient(
+			rgba(255, 255, 255, 0.3),
+			rgba(255, 255, 255, 0.5)
+		),
+		url(../images/dl.beatsnoop.com-3000-62U37oWnVz.jpg);
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.dashboard-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	position: relative;
+	min-height: 100vh;
+	padding: 1em 1em 4em;
+	gap: 1em;
+	backdrop-filter: blur(2px);
+}
+
+.dashboard-wrapper h3,
+.dashboard-wrapper p {
+	color: #fff;
+	font-weight: 600;
+}
+
+/* ----The User Login Details---- */
+.dashboard-section {
+	display: grid;
+	flex-direction: column;
+	width: 100%;
+	padding: 1em;
+}
+
+.user_info {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 10px;
+	justify-content: left;
+	align-items: center;
+	width: 100%;
+}
+
+.user_info label {
+	display: flex;
+	align-items: center;
+	text-align: left;
+	font-weight: 600;
+	font-size: 0.9em;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	padding: 5px 1em;
+	color: #fff;
+}
+/*--------- The dashboard Navigation menu---------- */
+
+.dashboard-wrapper nav {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.nav-links {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 1em;
+	width: 100%;
+}
+
+.nav-links a {
+	padding: 1em;
+	text-align: left;
+	color: purple;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	transition: 0.2s ease;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 4px;
+}
+
+.nav-links a:hover {
+	color: #fff;
+	background: rgb(128, 0, 128);
+}
+
+/*********************The MANAGER DASHBOARD **************** */
+
+#manager-dashboard-page {
+	position: relative;
+	background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)),
+		url(../images/dl.beatsnoop.com-3000-3ogeGpibTU.jpg);
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.dashboard-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	position: relative;
+	min-height: 100vh;
+	padding: 1em 1em 4em;
+	gap: 1em;
+	backdrop-filter: blur(3px);
+}
+
+.dashboard-wrapper h3,
+.dashboard-wrapper p {
+	color: #fff;
+	font-weight: 600;
+}
+
+/* ----The User Login Details---- */
+.dashboard-section {
+	display: grid;
+	flex-direction: column;
+	width: 100%;
+	padding: 1em;
+}
+
+.user_info {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 10px;
+	justify-content: left;
+	align-items: center;
+	width: 100%;
+}
+
+#manager-dashboard-page .user_info label {
+	display: flex;
+	align-items: center;
+	text-align: left;
+	font-weight: 600;
+	font-size: 0.9em;
+	border: 1px solid rgb(255, 165, 0, 0.7);
+	background-color: rgb(255, 165, 0, 0.2);
+	padding: 5px 1em;
+	color: #fff;
+}
+/*--------- The dashboard Navigation menu---------- */
+
+.dashboard-wrapper nav {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.nav-links {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 1em;
+	width: 100%;
+}
+
+.nav-links a {
+	padding: 1em;
+	text-align: left;
+	color: purple;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	transition: 0.2s ease;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 4px;
+}
+
+.nav-links a:hover {
+	color: #fff;
+	background: rgb(128, 0, 128);
+}
+
+/*********************The STAFF DASHBOARD **************** */
+
+#staff-dashboard-page {
+	position: relative;
+	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
+		url(../images/dl.beatsnoop.com-3000-TX0rwFzIxD.jpg);
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.dashboard-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	position: relative;
+	min-height: 100vh;
+	padding: 1em 1em 4em;
+	gap: 1em;
+	backdrop-filter: blur(2px);
+}
+
+.dashboard-wrapper h3,
+.dashboard-wrapper p {
+	color: #fff;
+	font-weight: 600;
+}
+
+/* ----The User Login Details---- */
+.dashboard-section {
+	display: grid;
+	flex-direction: column;
+	width: 100%;
+	padding: 1em;
+}
+
+.user_info {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 10px;
+	justify-content: left;
+	align-items: center;
+	width: 100%;
+}
+
+.user_info label {
+	display: flex;
+	align-items: center;
+	text-align: left;
+	font-weight: 600;
+	font-size: 0.9em;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	padding: 5px 1em;
+	color: #fff;
+}
+/*--------- The dashboard Navigation menu---------- */
+
+.dashboard-wrapper nav {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.nav-links {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 1em;
+	width: 100%;
+}
+
+.nav-links a {
+	padding: 1em;
+	text-align: left;
+	color: purple;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	transition: 0.2s ease;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 4px;
+}
+
+.nav-links a:hover {
+	color: #fff;
+	background: rgb(128, 0, 128);
 }

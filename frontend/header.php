@@ -110,8 +110,8 @@
                 </div>
 
                 <div id="information"><a href="./about.php"> ABOUT </a> </div>
-                <div id="wall-of-fame"><a href="./concept-hub.php"> CONCEPT HUB </a></div>
-                <div id="faq"><a href="#"> FAQs </a></div>
+                <div id="concepts"><a href="./concept-hub.php"> CONCEPT HUB </a></div>
+                <div id="submission"><a href="./submissions.php"> SUBMISSIONS </a></div>
                 <div id="contact"><a href="./contact.php"> CONTACT US </a></div>
 
 

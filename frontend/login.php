@@ -87,6 +87,19 @@ if (isset($_POST['submit'])) {
 				}
 			}
 			?>
+			<?php
+			if (isset($message) || !empty($_SESSION['message'])) {
+				foreach ($message as $message) {
+					echo '<div class ="message">' . $message . '</div>';
+				}
+				// echo '<div class ="message">' . $_SESSION['message'] . '</div>';
+			} elseif (!empty($_GET['message'])) {
+				$message = $_GET['message'];
+				echo '<div class ="message">' . $message . '</div>';
+			}
+
+
+			?>
 
 			<h2>Member Login</h2>
 			<p>Don't have an Account?<br> <a href="./signup.php"> Register here</a><br></p>
