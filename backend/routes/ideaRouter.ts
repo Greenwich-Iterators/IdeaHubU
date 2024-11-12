@@ -18,11 +18,13 @@ ideaRouter.post("/add", async (req: Request, res: Response) => {
 			ideaDescription,
 			userId,
 			anonymousPost,
-			categoryId,
-			filename = null,
+			categoryId = null,
+			filename,
 		} = req.body;
 
-		if (!ideaTitle && ideaDescription) {
+		console.log(req.body);
+
+		if (!ideaTitle && !ideaDescription) {
 			res.status(400).json({
 				success: false,
 				error: "Idea cannot be empty",
@@ -36,6 +38,7 @@ ideaRouter.post("/add", async (req: Request, res: Response) => {
 			});
 			return;
 		}
+		console.log("here");
 
 		const existingUser = await User.findOne({ _id: userId });
 
@@ -63,6 +66,7 @@ ideaRouter.post("/add", async (req: Request, res: Response) => {
 			anonymousPost: anonymousPost ?? false,
 			filename: filename,
 		});
+		console.log("here", newIdea);
 
 		await Idea.create(newIdea);
 

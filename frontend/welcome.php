@@ -76,22 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                     }
                 }
             }
-            $data = array(
-                'ideaTitle' => $ideaTitle,
-                'ideaDescription' => $ideaDescription,
-                'userId' => $response['userId'],
-                'anonymousPost' => $response['anonymousPost'],
-                'categoryId' => $ideaCategory,
-                'filename' => $fileHash,
-            );
-            $context = stream_context_create([
-                'http' => [
-                    'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
-                    'method' => 'GET',
-                    'content' => json_encode($data)
-                ]
-            ]);
-            $result = @file_get_contents("http://localhost:9000/api/idea/add", false, $context);
         }
     }
 }
