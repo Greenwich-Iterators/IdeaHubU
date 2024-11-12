@@ -14,6 +14,7 @@ const ideaSchema = new mongoose.Schema({
 	userLikes: { type: [ObjectId], ref: "User" },
 	userDislikes: { type: [ObjectId], ref: "User" },
 	hidden: { type: Boolean, default: false },
+	views: { type: Number, default: 0 },
 	filename: { type: String, default: null },
 });
 

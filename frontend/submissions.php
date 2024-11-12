@@ -142,13 +142,36 @@ if ($categoriesResponse && isset($categoriesResponse['success']) && $categoriesR
 	$categories = $categoriesResponse['categories'];
 }
 
+
+// Like Idea
+function likeIdea($id): bool
+{
+	global $token;
+	global $response;
+	$likeResult = @file_get_contents(
+		"http://localhost:9000/api/idea/like/",
+		false,
+		stream_context_create([
+			'http' => [
+				'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+				'method' => 'POST',
+				'content' => json_encode(['ideaId' => $id, 'userId' => $response['userId']])
+			]
+		])
+	);
+
+	$likeResponse = json_decode($likeResult, true);
+	return $likeResponse['success'];
+}
 ?>
+
+
 
 <div id="idea-page">
 	<div class="idea-wrapper">
 
 
-	
+
 		<!-- The Submissions Guidelines Section -->
 		<div id="main-submission-guidelines">
 			<h1>Submission Guidelines</h1>
@@ -158,12 +181,10 @@ if ($categoriesResponse && isset($categoriesResponse['success']) && $categoriesR
 
 			</p>
 			<ul>
-				<li><strong>Format:</strong> Please submit your contributions as a Word document or PDF. Artwork should
-					be in high-resolution JPEG or PNG format.</li>
+				<li><strong>Format:</strong> Please submit your contributions as a PDF.</li>
 
 				<li>
-					<strong>Word Limit:</strong> Articles should be between 500-1,500 words; poetry pieces should be no
-					more than 40 lines; artwork should be accompanied by a brief description.
+					<strong>Word Limit:</strong> Idea Description should be between 500-1,500 words;
 				</li>
 				<li>
 					<strong>Deadline:</strong> All submissions for the upcoming issue will be shared way ahead of time.
