@@ -1388,7 +1388,7 @@ footer li span {
 
 .cookie-content p {
 	text-align: left;
-	color: purple;
+	color: orange;
 }
 
 .cookie-content p span {
@@ -3690,6 +3690,40 @@ select#timeFilter {
 	color: #000;
 }
 
+.newest-ideas {
+	display: grid;
+	justify-content: center;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 220px));
+	gap: 0.5em;
+	width: 100%;
+	padding: 2em 1em;
+}
+
+.newest-idea-card {
+	height: min-content;
+	padding: 0.5em;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	background-color: rgba(255, 255, 255, 0.5);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+	transition: box-shadow 0.3s ease;
+	cursor: none;
+}
+
+.newest-idea-card:nth-child(even) {
+	background-color: rgba(128, 0, 128, 0.1);
+}
+
+.newest-idea-card h3 {
+	font-size: 0.9em;
+	margin: auto;
+}
+.newest-idea-card p {
+	font-size: 0.8em;
+	color: #000;
+	padding: 0;
+	margin: 0;
+}
 /* The Side Column with stats */
 
 aside {

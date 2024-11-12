@@ -60,81 +60,8 @@ $ideasResponse = json_decode($ideasResult, true);
 
 
 <div id="ideas-page">
-    <?php
-    if (isset($ideasResponse['success']) && $ideasResponse['success'] && isset($ideasResponse['ideas'])) {
-        foreach ($ideasResponse['ideas'] as $idea) {
-            ?>
-            <div class="idea-card">
-                <h3><?php echo htmlspecialchars($idea['ideaTitle']); ?></h3>
-                <p><?php echo htmlspecialchars($idea['ideaDescription']); ?></p>
-                <p>Posted by:
-                    <?php
-                    if (isset($idea['anonymousPost']) && $idea['anonymousPost']) {
-                        echo "Anonymous";
-                    } elseif (isset($idea['userId']) && isset($idea['userId']['firstname']) && isset($idea['userId']['lastname'])) {
-                        echo htmlspecialchars($idea['userId']['firstname'] . ' ' . $idea['userId']['lastname']);
-                    } else {
-                        echo "Unknown";
-                    }
-                    ?>
-                </p>
-                <p>Created at: <?php echo date('Y-m-d H:i:s', strtotime($idea['createdAt'])); ?></p>
-                <p>Likes: <?php echo count($idea['userLikes']); ?></p>
-                <p>Dislikes: <?php echo count($idea['userDislikes']); ?></p>
-            </div>
-            <?php
-        }
-    } else {
-        echo "<p>No ideas found or there was an error fetching the ideas.</p>";
-    }
-    ?>
-    <!-- <div class="search-container">
-        <form class='search-form' method="post">
 
 
-            <input type="text" name="q" placeholder="Search ideas" required>
-
-            <select id="categoryFilter">
-                <option value="">All Categories</option>
-                <option value="teaching">Teaching</option>
-                <option value="technology">Technology</option>
-                <option value="health">Health</option>
-                <option value="recreation">Recreation</option>
-
-            </select>
-            <select id="timeFilter">
-                <option value="all">All Time</option>
-                <option value="month">This Month</option>
-            </select>
-
-            <button class="search-btn" type="submit" name="idea-search-btn"></button>
-        </form>
-
-        <?php
-
-        // if (isset($_POST['idea-search-btn'])) {
-        
-
-
-        //     $connection = new mysqli("localhost", "root",  "", "amaka gym");
-        //     $q = $connection->real_escape_string($_POST['q']);
-        
-        //     $column = $connection->real_escape_string($_POST['column']);
-        
-        //     if ($column == "" || ($column != "idea_title" && $column != "idea_description" && $column != "idea_Category"))
-        //         $column = "idea_title";
-        
-        //     $sql = $connection->query(query: "SELECT idea_title FROM ideas WHERE $column LIKE '%$q%'");
-        //     $result = mysqli_num_rows($sql);
-        //     if ($result > 0) {
-        //         while ($data = mysqli_fetch_assoc($sql))
-        //             echo  $data['idea_title'] . " <br>";
-        //     } else
-        //         echo "<br>" . "No results found!";
-        // }
-        
-        ?>
-    </div> -->
     <div class="title-text">
         <h3>Welcome to the University Concept Hub page</h3>
         <p> A place where creativity is cultivated! Discover the most popular projects, look into the most popular
@@ -145,7 +72,42 @@ $ideasResponse = json_decode($ideasResult, true);
             world.</p>
     </div>
 
+    <div>
+        <p>Newest Ideas</p>
+    </div>
 
+    <?php
+    if (isset($ideasResponse['success']) && $ideasResponse['success'] && isset($ideasResponse['ideas'])) {
+        // Start the single .newest-ideas container
+        echo '<div class="newest-ideas">';
+
+        foreach ($ideasResponse['ideas'] as $idea) {
+    ?>
+            <div class="newest-idea-card">
+                <h3><?php echo htmlspecialchars($idea['ideaTitle']); ?></h3>
+                <p><?php echo htmlspecialchars($idea['ideaDescription']); ?></p>
+                <p>Posted by:
+                    <?php
+                    if (isset($idea['userId']) && isset($idea['userId']['firstname']) && isset($idea['userId']['lastname'])) {
+                        echo htmlspecialchars($idea['userId']['firstname'] . ' ' . $idea['userId']['lastname']);
+                    } else {
+                        echo "Anonymous";
+                    }
+                    ?>
+                </p>
+                <p>Created at: <?php echo date('Y-m-d H:i:s', strtotime($idea['createdAt'])); ?></p>
+                <p>Likes: <?php echo count($idea['userLikes']); ?></p>
+                <p>Dislikes: <?php echo count($idea['userDislikes']); ?></p>
+            </div>
+    <?php
+        }
+
+        // Close the single .newest-ideas container
+        echo '</div>';
+    } else {
+        echo "<p>No ideas found or there was an error fetching the ideas.</p>";
+    }
+    ?>
 
     <!-- Ideas Tabs Section -->
     <div class="tabs">
