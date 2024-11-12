@@ -96,8 +96,32 @@ $ideasResponse = json_decode($ideasResult, true);
                     ?>
                 </p>
                 <p>Created at: <?php echo date('Y-m-d H:i:s', strtotime($idea['createdAt'])); ?></p>
-                <p>Likes: <?php echo count($idea['userLikes']); ?></p>
-                <p>Dislikes: <?php echo count($idea['userDislikes']); ?></p>
+                <p id="likeCount-<?php echo $ideaId; ?>">Likes: <?php echo count($idea['userLikes']); ?></p>
+                <p id="dislikeCount-<?php echo $ideaId; ?>">Dislikes: <?php echo count($idea['userDislikes']); ?></p>
+
+                <!-- Like and Dislike Buttons -->
+
+                <div class="like-buttonz">
+                    <button class="like-button" onclick="likeIdea(<?php echo $ideaId; ?>)"><i class="fa-regular fa-thumbs-up"></i></button>
+                    <button class="dislike-button" onclick="dislikeIdea(<?php echo $ideaId; ?>)"><i class="fa-regular fa-thumbs-down"></i></button>
+                </div>
+
+
+                <!-- Comments Section -->
+                <div class="comments-section">
+
+                    <div class="comments-list">
+                        <?php
+                        if (isset($idea['comments'])) {
+                            foreach ($idea['comments'] as $comment) {
+                                echo "<p><strong>" . htmlspecialchars($comment['username']) . ":</strong> " . htmlspecialchars($comment['text']) . "</p>";
+                            }
+                        }
+                        ?>
+                    </div>
+                    <textarea class="comment-input" placeholder="Add a comment..."></textarea>
+                    <button id="idea-card-submit-btn" onclick="addComment(<?php echo $ideaId; ?>)">Submit Comment</button>
+                </div>
             </div>
     <?php
         }

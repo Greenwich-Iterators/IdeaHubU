@@ -205,7 +205,7 @@ function likeIdea($id): bool
 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="idea-form" method="POST" enctype="multipart/form-data">
 			<?php
 			// ...
-			
+
 			// Display the error messages
 			if (isset($message)) {
 				foreach ($message as $msg) {
@@ -610,29 +610,29 @@ include_once 'footer.php';
 <script>
 	// To enable the Submit Idea button after the Terms and Conditions are read
 
-	$(function () {
-		$(function () {
-			var ideaButton = $('#submitIdea');
-			ideaButton.attr('disabled', 'disabled')
-			$('#acceptTerms').change(function (e) {
-				$('#acceptTerms').change(function (e) {
-					if (this.checked) {
-						ideaButton.removeAttr('disabled');
-						ideaButton.addClass('submitIdeaStyle')
-					} else {
-						ideaButton.attr('disabled', 'disabled');
-						ideaButton.removeClass('submitIdeaStyle')
-					}
-				})
-			})
+
+	$(function() {
+		var ideaButton = $('#submitIdea');
+		ideaButton.attr('disabled', 'disabled')
+		$('#acceptTerms').change(function() {
+
+			if (this.checked) {
+				ideaButton.removeAttr('disabled');
+				ideaButton.addClass('submitIdeaStyle')
+			} else {
+				ideaButton.attr('disabled', 'disabled');
+				ideaButton.removeClass('submitIdeaStyle')
+			}
+		});
+	});
 </script>
 
 
 <script>
-			// Script for the Hidden Terms and Conditions
-			let termsCons = document.querySelector('#terms-container');
+	// Script for the Hidden Terms and Conditions
+	let termsCons = document.querySelector('#terms-container');
 
-			function hideShowTerms() {
-				termsCons.classList.toggle("hide-Terms")
-			}
+	function hideShowTerms() {
+		termsCons.classList.toggle("hide-Terms")
+	}
 </script>

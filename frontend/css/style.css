@@ -2854,9 +2854,10 @@ p#selectedDepartment {
 	border: 1px solid rgba(128, 0, 128);
 	border-radius: 5px;
 	background: linear-gradient(
-		rgba(255, 255, 255, 0.8),
+		rgba(255, 255, 255, 0.5),
 		rgba(255, 255, 255, 0.5)
 	);
+	backdrop-filter: blur(1px);
 }
 
 #idea-form div {
@@ -2908,8 +2909,12 @@ p#selectedDepartment {
 	margin-top: 0.5em;
 	border: 1px solid #ddd;
 	border-radius: 4px;
-	background-color: #f9f9f9;
+	background-color: rgba(0, 0, 0, 0.1);
 	resize: none;
+}
+
+#idea-form select {
+	height: 3em;
 }
 
 /* The Terms and Conditions container */
@@ -3046,13 +3051,19 @@ p#selectedDepartment {
 }
 
 #submitIdea.submitIdeaStyle:hover {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 20px;
 	cursor: pointer;
 	background-color: #fff;
 	transition: 0.2s ease-in-out;
 	border: 1px solid purple;
 	box-sizing: border-box;
 	border-radius: 3px;
-	padding: 1em;
+	margin: auto;
+	padding: 1.3em 1em;
+	border-radius: 3px;
 	color: purple;
 }
 
@@ -3700,6 +3711,9 @@ select#timeFilter {
 }
 
 .newest-idea-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	height: min-content;
 	padding: 0.5em;
 	border: 1px solid rgba(0, 0, 0, 0.1);
@@ -3724,6 +3738,52 @@ select#timeFilter {
 	padding: 0;
 	margin: 0;
 }
+
+/* The Like and Dislikes Buttons */
+
+.like-buttonz {
+	display: flex;
+	justify-content: center;
+	max-width: 100px;
+	gap: 1em;
+	margin: auto;
+	color: #000;
+}
+
+button.like-button {
+	height: 2em;
+	width: 30px;
+	background-color: transparent;
+	font-size: 1.2em;
+}
+
+button.dislike-button {
+	height: 2em;
+	width: 30px;
+	background-color: transparent;
+	font-size: 1.2em;
+}
+
+/* --------The Comments Section of the Ideas-------- */
+.comment-input {
+	background-color: rgba(255, 255, 255, 0.8);
+	width: 100%;
+	outline: 1px rgba(0, 0, 0, 0.1) solid;
+	resize: none;
+}
+
+#idea-card-submit-btn {
+	display: flex;
+	margin: auto;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	color: #000;
+	height: 2em;
+	padding: 1em;
+}
+
 /* The Side Column with stats */
 
 aside {
