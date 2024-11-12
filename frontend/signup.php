@@ -8,17 +8,19 @@ if (isset($_POST['submit'])) {
 	$firstname = $_POST['firstname'];
 	$lastname = $_POST['lastname'];
 	$username = $_POST['username'];
+	$department = $_POST['department_Id'];
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 	$cPassword = $_POST['cPassword'];
 
-	if (!empty($firstname) && !empty($lastname) && !empty($username) && !empty($password) && !is_numeric($firstname) && !is_numeric($lastname) && !is_numeric($username)) {
+	if (!empty($firstname) && !empty($lastname) && !empty($username) && !empty($password) && !empty($department) && !is_numeric($firstname) && !is_numeric($lastname) && !is_numeric($username)) {
 		if ($password == $cPassword) {
 			// Prepare data for API call
 			$data = array(
 				'firstname' => $firstname,
 				'lastname' => $lastname,
 				'username' => $username,
+				'department' => $department,
 				'email' => $email,
 				'password' => $password
 			);
@@ -67,7 +69,7 @@ if (isset($_POST['submit'])) {
 ?>
 
 <!-- Rest of your HTML code remains the same -->
-?>
+
 
 
 
@@ -113,13 +115,26 @@ if (isset($_POST['submit'])) {
 					value="<?php echo $username; ?>" required maxlength="30">
 			</div><br><br>
 
+			<!-- Select Department -->
+			<div class="departmentDropDown">
+				<label for="departmentDropdown">Select Department:</label>
+				<select id="selectItems" onchange="selectDepartment()">
+					<option value="">--Select a Department -</option>
+					<option value="6731245640abf475a4d7e94e">Finance</option>
+					<option value="673124be40abf475a4d7e94f ">Economics</option>
+					<option value="673124e740abf475a4d7e950 ">Literature and Language</option>
+					<option value="6731250640abf475a4d7e951">Human Resource</option>
+
+				</select>
+
+			</div><br><br>
 
 			<div><label for="email"></label>
 				<input type="text" name="email" class="signup-inputs" placeholder="Enter email" type="email"
 					value="<?php echo $email; ?>" required>
 			</div><br><br>
 
-			<!-- Select Department -->
+
 
 			<div><label for="password"></label>
 				<input type="password" id="password" name="password" min-length="" class="signup-inputs"
@@ -170,6 +185,20 @@ if (isset($_POST['submit'])) {
 <?php
 include_once 'footer.php';
 ?>
+
+
+<!-- Script for the dropdown menu on the Sign up Page -->
+
+<script>
+	// Function to handle department selection and display it
+	function selectDepartment() {
+		const dropdown = document.getElementById("departmentDropdown");
+		const selectedDepartment = dropdown.options[dropdown.selectedIndex].text;
+
+		// Update the display of the selected department
+		document.getElementById("selectedDepartment").innerText = `Selected Department: ${selectedDepartment}`;
+	}
+</script>
 
 <!-- Script to allow the passwords to be made visible or hidden-->
 
