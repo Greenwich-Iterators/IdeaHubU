@@ -95,9 +95,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 						$vmessage .= " Sorry, there was an error uploading your file.";
 						$uploadOk = 0;
 					}
-					$data["filename"] = $fileHash;
 				}
 			}
+			$data["filename"] = $fileHash;
 		}
 	}
 
@@ -123,6 +123,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 	}
 }
 
+// Get Categories
+
+$categoriesResult = @file_get_contents(
+	"http://localhost:9000/api/category/all",
+	false,
+	stream_context_create([
+		'http' => [
+			'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+			'method' => 'GET'
+		]
+	])
+);
+
+$categoriesResponse = json_decode($categoriesResult, true);
+
+if ($categoriesResponse && isset($categoriesResponse['success']) && $categoriesResponse['success']) {
+	$categories = $categoriesResponse['categories'];
+}
 
 ?>
 
@@ -142,11 +160,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 			<ul>
 				<li><strong>Format:</strong> Please submit your contributions as a Word document or PDF. Artwork should
 					be in high-resolution JPEG or PNG format.</li>
-				<li><strong>Format:</strong> Please submit your contributions as a Word document or PDF. Artwork should
-					be in high-resolution JPEG or PNG format.</li>
+
 				<li>
-					<strong>Word Limit:</strong> Articles should be between 500-1,500 words; poetry pieces should be no
-					more than 40 lines; artwork should be accompanied by a brief description.
 					<strong>Word Limit:</strong> Articles should be between 500-1,500 words; poetry pieces should be no
 					more than 40 lines; artwork should be accompanied by a brief description.
 				</li>
@@ -156,20 +171,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 				<li>
 					<strong>Terms and Conditions:</strong> Before making any submission you will need to accept and
 					agree to our Terms and Conditions. <br>
-					<strong>Terms and Conditions:</strong> Before making any submission you will need to accept and
-					agree to our Terms and Conditions. <br>
 					You can view our Terms and Conditions by clicking on the below link.
 				</li>
 			</ul>
 			<button id="termsAndConditions-btn" onclick=hideShowTerms()> <span> View our Terms and Conditions
 					here</span></button>
-			<button id="termsAndConditions-btn" onclick=hideShowTerms()> <span> View our Terms and Conditions
-					here</span></button>
+
 		</div>
 
 
 		<!-- The Submissions Form -->
-		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="idea-form" method="POST" enctype="multipart/form-data">
 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="idea-form" method="POST" enctype="multipart/form-data">
 			<?php
 			// ...
@@ -191,18 +202,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 			</div>
 			<br><br>
 			<label for=" title">Idea Title</label>
-			<label for=" title">Idea Title</label>
 			<input type="text" id="title" name="title" required>
 			<label for="category">Idea Category</label>
-			<select id="category" name="category">
-				<option value="innovation">Innovation</option>
-				<option value="technology">Technology</option>
-				<option value="design">Design</option>
-			</select>
+			<div>
+				<select id="category" name="category">
+					<?php
+					if (isset($categories) && is_array($categories)) {
+						foreach ($categories as $category) {
+							echo '<option value="' . htmlspecialchars($category['_id']) . '">' . htmlspecialchars($category['name']) . '</option>';
+						}
+					} else {
+						echo '<option value="">No categories available</option>';
+					}
+					?>
+				</select>
+			</div>
 			<label for="description">Description</label>
 			<textarea id="description" name="description" rows="4" required></textarea>
-			<label for="fileToUpload">Optional: Select a PDF to upload (max 4MB):</label><br>
-			<input type="file" name="fileToUpload" id="fileToUpload"><br><br>
 			<label for="fileToUpload">Optional: Select a PDF to upload (max 4MB):</label><br>
 			<input type="file" name="fileToUpload" id="fileToUpload"><br><br>
 
@@ -574,28 +590,28 @@ include_once 'footer.php';
 	// To enable the Submit Idea button after the Terms and Conditions are read
 
 	$(function () {
-	$(function () {
-		var ideaButton = $('#submitIdea');
-		ideaButton.attr('disabled', 'disabled')
-		$('#acceptTerms').change(function (e) {
-		$('#acceptTerms').change(function (e) {
-			if (this.checked) {
-				ideaButton.removeAttr('disabled');
-				ideaButton.addClass('submitIdeaStyle')
-			} else {
-				ideaButton.attr('disabled', 'disabled');
-				ideaButton.removeClass('submitIdeaStyle')
-			}
-		})
-	})
+		$(function () {
+			var ideaButton = $('#submitIdea');
+			ideaButton.attr('disabled', 'disabled')
+			$('#acceptTerms').change(function (e) {
+				$('#acceptTerms').change(function (e) {
+					if (this.checked) {
+						ideaButton.removeAttr('disabled');
+						ideaButton.addClass('submitIdeaStyle')
+					} else {
+						ideaButton.attr('disabled', 'disabled');
+						ideaButton.removeClass('submitIdeaStyle')
+					}
+				})
+			})
 </script>
 
 
 <script>
-	// Script for the Hidden Terms and Conditions
-	let termsCons = document.querySelector('#terms-container');
+			// Script for the Hidden Terms and Conditions
+			let termsCons = document.querySelector('#terms-container');
 
-	function hideShowTerms() {
-		termsCons.classList.toggle("hide-Terms")
-	}
+			function hideShowTerms() {
+				termsCons.classList.toggle("hide-Terms")
+			}
 </script>
