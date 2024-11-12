@@ -9,13 +9,83 @@ if (!isset($_SESSION['first_name']) && (isset($_POST['idea-search-btn']))) {
     </script>";
 }
 
+// Is User Logged In
+if (!isset($_COOKIE['auth_token'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$token = $_COOKIE['auth_token'];
+$verifytoken_url = 'http://localhost:9000/api/user/verifytoken';
+$options = [
+    'http' => [
+        'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+        'method' => 'GET'
+    ]
+];
+$context = stream_context_create($options);
+$result = @file_get_contents($verifytoken_url, false, $context);
+
+if ($result === FALSE) {
+    header("Location: login.php");
+    exit();
+}
+
+$response = json_decode($result, true);
+
+if (!$response['valid']) {
+    header("Location: login.php");
+    exit();
+}
+
+// Get all ideas from API
+$ideasContext = stream_context_create([
+    'http' => [
+        'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+        'method' => 'GET',
+
+    ]
+]);
+
+$ideasResult = @file_get_contents(
+    "http://localhost:9000/api/idea/all",
+    false,
+    $ideasContext
+);
+
+$ideasResponse = json_decode($ideasResult, true);
 
 ?>
 
 
 
 <div id="ideas-page">
-
+    <?php
+    if (isset($ideasResponse['success']) && $ideasResponse['success'] && isset($ideasResponse['ideas'])) {
+        foreach ($ideasResponse['ideas'] as $idea) {
+            ?>
+            <div class="idea-card">
+                <h3><?php echo htmlspecialchars($idea['ideaTitle']); ?></h3>
+                <p><?php echo htmlspecialchars($idea['ideaDescription']); ?></p>
+                <p>Posted by:
+                    <?php
+                    if (isset($idea['userId']) && isset($idea['userId']['firstname']) && isset($idea['userId']['lastname'])) {
+                        echo htmlspecialchars($idea['userId']['firstname'] . ' ' . $idea['userId']['lastname']);
+                    } else {
+                        echo "Anonymous";
+                    }
+                    ?>
+                </p>
+                <p>Created at: <?php echo date('Y-m-d H:i:s', strtotime($idea['createdAt'])); ?></p>
+                <p>Likes: <?php echo count($idea['userLikes']); ?></p>
+                <p>Dislikes: <?php echo count($idea['userDislikes']); ?></p>
+            </div>
+            <?php
+        }
+    } else {
+        echo "<p>No ideas found or there was an error fetching the ideas.</p>";
+    }
+    ?>
     <!-- <div class="search-container">
         <form class='search-form' method="post">
 
@@ -41,17 +111,17 @@ if (!isset($_SESSION['first_name']) && (isset($_POST['idea-search-btn']))) {
         <?php
 
         // if (isset($_POST['idea-search-btn'])) {
-
+        
 
 
         //     $connection = new mysqli("localhost", "root",  "", "amaka gym");
         //     $q = $connection->real_escape_string($_POST['q']);
-
+        
         //     $column = $connection->real_escape_string($_POST['column']);
-
+        
         //     if ($column == "" || ($column != "idea_title" && $column != "idea_description" && $column != "idea_Category"))
         //         $column = "idea_title";
-
+        
         //     $sql = $connection->query(query: "SELECT idea_title FROM ideas WHERE $column LIKE '%$q%'");
         //     $result = mysqli_num_rows($sql);
         //     if ($result > 0) {
@@ -60,12 +130,17 @@ if (!isset($_SESSION['first_name']) && (isset($_POST['idea-search-btn']))) {
         //     } else
         //         echo "<br>" . "No results found!";
         // }
-
+        
         ?>
     </div> -->
     <div class="title-text">
         <h3>Welcome to the University Concept Hub page</h3>
-        <p> A place where creativity is cultivated! Discover the most popular projects, look into the most popular concepts, and keep up with the most recent contributions here. You can interact with fascinating ideas, express your opinions, and work together with other students, teachers, and business owners here. Comment, vote, and share your thoughts on the concepts that motivate you to join the discussion. Let's collaborate to create, innovate, and transform because we at the Idea Hub think that every idea has the power to change the world.</p>
+        <p> A place where creativity is cultivated! Discover the most popular projects, look into the most popular
+            concepts, and keep up with the most recent contributions here. You can interact with fascinating ideas,
+            express your opinions, and work together with other students, teachers, and business owners here. Comment,
+            vote, and share your thoughts on the concepts that motivate you to join the discussion. Let's collaborate to
+            create, innovate, and transform because we at the Idea Hub think that every idea has the power to change the
+            world.</p>
     </div>
 
 
