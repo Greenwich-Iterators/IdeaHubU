@@ -5,7 +5,7 @@ if (!isset($_COOKIE['auth_token'])) {
 }
 
 $token = $_COOKIE['auth_token'];
-$url = 'http://localhost:9000/api/user/verifytoken';
+$verifytoken_url = 'http://localhost:9000/api/user/verifytoken';
 $options = [
     'http' => [
         'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
@@ -13,7 +13,7 @@ $options = [
     ]
 ];
 $context = stream_context_create($options);
-$result = @file_get_contents($url, false, $context);
+$result = @file_get_contents($verifytoken_url, false, $context);
 
 if ($result === FALSE) {
     header("Location: login.php");
@@ -32,6 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
     // Process form submission
     $ideaTitle = htmlspecialchars($_POST["ideaTitle"]);
     $ideaDescription = htmlspecialchars($_POST["ideaDescription"]);
+    $ideaCategory = htmlspecialchars($_POST["ideaCategory"]);
+    $anonymousPost = isset($_POST["anonymousPost"])? 1 : 0;
     $message = "Form submitted successfully! Idea Title: $ideaTitle";
 
     // Handle file upload if a file was selected
@@ -74,6 +76,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
                     }
                 }
             }
+            $data = array(
+                'ideaTitle' => $ideaTitle,
+                'ideaDescription' => $ideaDescription,
+                'userId' => $response['userId'],
+                'anonymousPost' => $response['anonymousPost'],
+                'categoryId' => $ideaCategory,
+                'filename' => $fileHash,
+            );
+            $context = stream_context_create([
+                'http' => [
+                    'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+                    'method' => 'GET',
+                    'content' => json_encode($data)
+                ]
+            ]);
+            $result = @file_get_contents("http://localhost:9000/api/idea/add", false, $context);
         }
     }
 }

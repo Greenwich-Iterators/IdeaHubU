@@ -69,10 +69,12 @@ $ideasResponse = json_decode($ideasResult, true);
                 <p><?php echo htmlspecialchars($idea['ideaDescription']); ?></p>
                 <p>Posted by:
                     <?php
-                    if (isset($idea['userId']) && isset($idea['userId']['firstname']) && isset($idea['userId']['lastname'])) {
+                    if (isset($idea['anonymousPost']) && $idea['anonymousPost']) {
+                        echo "Anonymous";
+                    } elseif (isset($idea['userId']) && isset($idea['userId']['firstname']) && isset($idea['userId']['lastname'])) {
                         echo htmlspecialchars($idea['userId']['firstname'] . ' ' . $idea['userId']['lastname']);
                     } else {
-                        echo "Anonymous";
+                        echo "Unknown";
                     }
                     ?>
                 </p>
