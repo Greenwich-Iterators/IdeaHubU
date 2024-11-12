@@ -25,8 +25,6 @@ if (isset($_POST['submit'])) {
 				'password' => $password
 			);
 
-			error_log(print_r($data));
-
 			$url = 'http://localhost:9000/api/user/register';
 
 			// Prepare the options for the HTTP stream
