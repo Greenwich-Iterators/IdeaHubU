@@ -116,6 +116,8 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 			return;
 		}
 
+		const deptId: string = departmentId;
+
 		const newUser = new User({
 			firstname,
 			lastname,
@@ -123,7 +125,7 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 			email,
 			password,
 			role: Roles.Staff,
-			departmentId: departmentId,
+			departmentId: deptId.trim(),
 		});
 
 		await User.create(newUser);

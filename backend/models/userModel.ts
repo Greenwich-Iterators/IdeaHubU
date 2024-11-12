@@ -23,8 +23,8 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save", async function (next) {
 	if (this.isModified("password")) {
-		console.log("New User Created: ", this);
 		this.password = await hashPassword(this.password);
+		console.log("New User Created: ", this);
 	}
 	next();
 });

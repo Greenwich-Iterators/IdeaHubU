@@ -13,17 +13,19 @@ if (isset($_POST['submit'])) {
 	$password = $_POST['password'];
 	$cPassword = $_POST['cPassword'];
 
-	if (!empty($firstname) && !empty($lastname) && !empty($username) && !empty($password) && !empty($department) && !is_numeric($firstname) && !is_numeric($lastname) && !is_numeric($username)) {
+	if (!empty($firstname) && !empty($lastname) && !empty($username) && !empty($password) && !empty($department) && !is_numeric($firstname) && !is_numeric($lastname) && !is_numeric($username) && !is_numeric($department)) {
 		if ($password == $cPassword) {
 			// Prepare data for API call
 			$data = array(
 				'firstname' => $firstname,
 				'lastname' => $lastname,
 				'username' => $username,
-				'department' => $department,
+				'departmentId' => $department,
 				'email' => $email,
 				'password' => $password
 			);
+
+			error_log(print_r($data));
 
 			$url = 'http://localhost:9000/api/user/register';
 
@@ -67,10 +69,6 @@ if (isset($_POST['submit'])) {
 	}
 }
 ?>
-
-<!-- Rest of your HTML code remains the same -->
-
-
 
 
 <div id="sign-up-page">
@@ -118,7 +116,7 @@ if (isset($_POST['submit'])) {
 			<!-- Select Department -->
 			<div class="departmentDropDown">
 				<label for="departmentDropdown">Select Department:</label>
-				<select id="selectItems" onchange="selectDepartment()">
+				<select id="selectItems" name="department_Id" onchange="selectDepartment()">
 					<option value="">--Select a Department -</option>
 					<option value="6731245640abf475a4d7e94e">Finance</option>
 					<option value="673124be40abf475a4d7e94f ">Economics</option>
