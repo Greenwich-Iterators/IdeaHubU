@@ -56,20 +56,22 @@ if (isset($_POST['submit'])) {
 
 			setcookie($cookie_name, $cookie_value, $cookie_expiry, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly);
 			// Redirect to dashboard page
-			if ($result['role'] == 'Administrator') {
-				header(header: "Location: admin_dashboard.php");
+			$dashboards = [
+				'Administrator' => 'admin_dashboard.php',
+				'Staff' => 'staff_dashboard.php',
+				'Manager' => 'manager_dashboard.php',
+				'Coordinator' => 'coordinator_dashboard.php'
+			];
+
+			if (isset($dashboards[$result['role']])) {
+				header("Location: " . $dashboards[$result['role']]);
+				exit();
+			} else {
+				// Handle unexpected role
+				error_log("Unexpected user role: " . $result['role']);
+				header("Location: error.php");
+				exit();
 			}
-			if ($result['role'] == 'Staff') {
-				header(header: "Location: staff_dashboard.php");
-			}
-			if ($result['role'] == 'Manager') {
-				header(header: "Location: manager_dashboard.php");
-			}
-			if ($result['role'] == 'Coordinator') {
-				header(header: "Location: coordinator_dashboard.php");
-			}
-			header(header: "Location: welcome.php");
-			exit();
 		} elseif (strpos($httpCode, '401') !== false) {
 			// Invalid credentials
 			$message[] = "Invalid credentials. Please try again.";
