@@ -34,23 +34,39 @@ if (!$response['valid']) {
 }
 
 // Get all users from the api
-$user_url = 'http://localhost:9000/api/user/all';
-$options = [
-    'http' => [
-        'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
-        'method' => 'GET'
-    ]
-];
-
-$context = stream_context_create($options);
-
-$user_result = @file_get_contents($user_url, false, $context);
+$user_result = @file_get_contents(
+    'http://localhost:9000/api/user/all',
+    false,
+    stream_context_create([
+        'http' => [
+            'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+            'method' => 'GET'
+        ]
+    ])
+);
 
 $users_response = json_decode($user_result, true);
 
 $users = $users_response['users'];
 
+$lastlogin_result = @file_get_contents(
+    "http://localhost:9000/api/user/lastlogin",
+    false,
+    stream_context_create([
+        'http' => [
+            'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+            'method' => 'GET',
+            "content" => json_encode([
+                'userId' => $response['userId']
+            ])
+        ]
+    ])
+);
+
+$lastlogin_response = json_decode($lastlogin_result, true);
+$lastlogin = date('Y-m-d h:i A', strtotime($lastlogin_response['lastLogin']));
 error_log(print_r($users, true));
+error_log(print_r($lastlogin, true));
 
 // $user_id = $_SESSION['id'];
 
@@ -79,7 +95,7 @@ error_log(print_r($users, true));
             <h3>Welcome, </h3>;
             <p>You are logged in with the following details:</p>
             <div class="login-info">
-                <p>Last Login: 2024-11-05 10:30 AM <?php echo $row['dateTime'] . "" ?>.</p>
+                <p>Last Login: <?php echo $lastlogin . "" ?>.</p>
             </div>
         </div>
 
@@ -87,10 +103,10 @@ error_log(print_r($users, true));
 
             <div class="user_info">
                 <label for="first-Name">First Name:
-                    <?php echo "<p>" . " " . $row['first_name'] . "" . "</p>"; ?></label>
-                <label for="last-Name">Last Name: <?php echo "<p>" . " " . $row['last_name'] . "" . "</p>"; ?></label>
-                <label for="email">email:<?php echo "<p>" . " " . $row['email'] . "" . "</p>"; ?></label>
-                <label for="role">Role: <?php echo "<p>" . " " . $row['user_role'] . "" . "</p>"; ?></label>
+                    <?php echo "<p>" . "  " . $response['firstname'] . "" . "</p>"; ?></label>
+                <label for="last-Name">Last Name: <?php echo "<p>" . "  " . $response['lastname'] . "" . "</p>"; ?></label>
+                <label for="email">email:<?php echo "<p>" . "  " . $response['email'] . "" . "</p>"; ?></label>
+                <label for="role">Role: <?php echo "<p>" . "  " . $response['userRole'] . "" . "</p>"; ?></label>
             </div>
         </div>
 
@@ -99,10 +115,12 @@ error_log(print_r($users, true));
             <div class="nav-links" id="manager-nav">
                 <a href="#" onclick="showSection('manageCategories')"><i class="fas fa-tags"></i> Manage Categories</a>
                 <a href="#" onclick="showSection('viewIdeas')"><i class="fas fa-lightbulb"></i> View Ideas</a>
-                <a href="#" onclick="showSection('commentsReports')"><i class="fas fa-comments"></i> Comments and Reports</a>
+                <a href="#" onclick="showSection('commentsReports')"><i class="fas fa-comments"></i> Comments and
+                    Reports</a>
                 <a href="#" onclick="showSection('userManagement')"><i class="fas fa-user-cog"></i> User Management</a>
                 <a href="#" onclick="showSection('exportData')"><i class="fas fa-file-export"></i> Export Data</a>
-                <a href="#" onclick="showSection('exceptionReports')"><i class="fas fa-exclamation-circle"></i> Exception Reports</a>
+                <a href="#" onclick="showSection('exceptionReports')"><i class="fas fa-exclamation-circle"></i>
+                    Exception Reports</a>
                 <a href="#" onclick="showSection('statistics')"><i class="fas fa-chart-bar"></i> Statistics</a>
                 <a href="#" onclick="showSection('systemSettings')"><i class="fas fa-cogs"></i> System Settings</a>
             </div>

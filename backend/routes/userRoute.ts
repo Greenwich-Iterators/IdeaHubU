@@ -96,7 +96,15 @@ userRouter.get("/verifytoken", async (req: Request, res: Response) => {
 
 		const user = await User.findOne({ username: result.user?.username });
 
-		res.status(200).json({ valid: true, userId: user?._id });
+		res.status(200).json({
+			valid: true,
+			userId: user?._id,
+			userRole: user?.role,
+			username: user?.username,
+			firstname: user?.firstname,
+			lastname: user?.lastname,
+			email: user?.email,
+		});
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ valid: false, message: "Server error" });
@@ -233,6 +241,16 @@ userRouter.get("/emailtest", async (req, res) => {
 		res.status(500).json(result);
 	}
 	res.status(200).json(result);
+});
+
+userRouter.get("/lastlogin", async (req, res) => {
+	const { userId } = req.body;
+	const result = await sessionModel.findOne({ userId: userId });
+
+	res.status(200).json({
+		success: true,
+		lastLogin: result?.lastLogin,
+	});
 });
 
 export default userRouter;
