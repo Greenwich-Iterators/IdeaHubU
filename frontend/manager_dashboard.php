@@ -65,7 +65,7 @@ $lastlogin_result = @file_get_contents(
 
 $lastlogin_response = json_decode($lastlogin_result, true);
 $lastlogin = date('Y-m-d h:i A', strtotime($lastlogin_response['lastLogin']));
-// error_log(print_r($users, true));
+error_log(print_r($users, true));
 // error_log(print_r($lastlogin, true));
 
 // Categories Array
@@ -90,7 +90,7 @@ if ($categories_response && isset($categories_response['success']) && $categorie
     $categories = $categories_response['categories'];
 }
 
-error_log(print_r($categories, true));
+// error_log(print_r($categories, true));
 function addCategory($name)
 {
     global $token;
@@ -179,9 +179,44 @@ function removeCategory($id)
         <div id="commentsReports" class="content-section"><span>Content for Comments and Reports</span></div>
         <div id="userManagement" class="content-section"><span> User Management</span>
             <br>
+
             <div class="content-section-contents">
+
+                <!-- 
                 <button class="btn" onclick="addUser()">Enable User</button>
-                <button class="btn" onclick="removeUser()">Disable User</button>
+                <button class="btn" onclick="removeUser()">Disable User</button> -->
+
+                <!-- Display the list of users -->
+                <?php
+                // The Array where users are coming from
+
+
+                // Check if there are users in the array Coming from Niza
+                if (!empty($users)) {
+                    echo '<table border="1" cellpadding="10">';
+                    echo '<tr><th>First Name</th><th>Last Name</th><th>Username</th><th>Email</th></tr>';
+
+                    // Loop through each user and display their information
+                    foreach ($users as $user) {
+                        echo '<tr>';
+
+                        echo '<td>' . htmlspecialchars($user['firstname']) . '</td>';
+                        echo '<td>' . htmlspecialchars($user['lastname']) . '</td>';
+                        echo '<td>' . htmlspecialchars($user['username']) . '</td>';
+                        echo '<td>' . htmlspecialchars($user['email']) . '</td>';
+                        echo '<td>' . htmlspecialchars($user['role']) . '</td>';
+                        echo '<td>';
+                        echo '<button onclick="enableUser(\'' . htmlspecialchars($user['_id']) . '\')">Enable</button> ';
+                        echo '<button onclick="disableUser(\'' . htmlspecialchars($user['_id']) . '\')">Disable</button>';
+                        echo '</td>';
+                        echo '</tr>';
+                    }
+
+                    echo '</table>';
+                } else {
+                    echo '<p>No users found.</p>';
+                }
+                ?>
             </div>
             </span>
         </div>
