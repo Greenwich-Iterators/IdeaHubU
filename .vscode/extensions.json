@@ -1,14 +1,15 @@
 {
-  "recommendations": [
-    "pranaygp.vscode-css-peek",
-    "donjayamanne.git-extension-pack",
-    "visualstudioexptteam.vscodeintellicode",
-    "visualstudioexptteam.intellicode-api-usage-examples",
-    "devsense.intelli-php-vscode",
-    "christian-kohler.npm-intellisense",
-    "christian-kohler.path-intellisense",
-    "devsense.phptools-vscode",
-    "bradlc.vscode-tailwindcss",
-    "fooxly.workspace"
-  ]
+	"recommendations": [
+		"pranaygp.vscode-css-peek",
+		"donjayamanne.git-extension-pack",
+		"visualstudioexptteam.vscodeintellicode",
+		"visualstudioexptteam.intellicode-api-usage-examples",
+		"devsense.intelli-php-vscode",
+		"christian-kohler.npm-intellisense",
+		"christian-kohler.path-intellisense",
+		"devsense.phptools-vscode",
+		"bradlc.vscode-tailwindcss",
+		"fooxly.workspace",
+		"ms-vsliveshare.vsliveshare"
+	]
 }
