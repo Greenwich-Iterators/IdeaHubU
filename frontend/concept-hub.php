@@ -82,7 +82,7 @@ $ideasResponse = json_decode($ideasResult, true);
         echo '<div class="newest-ideas">';
 
         foreach ($ideasResponse['ideas'] as $idea) {
-    ?>
+            ?>
             <div class="newest-idea-card">
                 <h3><?php echo htmlspecialchars($idea['ideaTitle']); ?></h3>
                 <p><?php echo htmlspecialchars($idea['ideaDescription']); ?></p>
@@ -102,8 +102,10 @@ $ideasResponse = json_decode($ideasResult, true);
                 <!-- Like and Dislike Buttons -->
 
                 <div class="like-buttonz">
-                    <button class="like-button" onclick="likeIdea(<?php echo $ideaId; ?>)"><i class="fa-regular fa-thumbs-up"></i></button>
-                    <button class="dislike-button" onclick="dislikeIdea(<?php echo $ideaId; ?>)"><i class="fa-regular fa-thumbs-down"></i></button>
+                    <button class="like-button" onclick="likeIdea(<?php echo $ideaId; ?>)"><i
+                            class="fa-regular fa-thumbs-up"></i></button>
+                    <button class="dislike-button" onclick="dislikeIdea(<?php echo $ideaId; ?>)"><i
+                            class="fa-regular fa-thumbs-down"></i></button>
                 </div>
 
 
@@ -123,7 +125,7 @@ $ideasResponse = json_decode($ideasResult, true);
                     <button id="idea-card-submit-btn" onclick="addComment(<?php echo $ideaId; ?>)">Submit Comment</button>
                 </div>
             </div>
-    <?php
+            <?php
         }
 
         // Close the single .newest-ideas container

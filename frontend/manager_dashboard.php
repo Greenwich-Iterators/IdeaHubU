@@ -4,6 +4,53 @@ session_start();
 
 error_reporting(0);
 
+// Is User Logged In
+if (!isset($_COOKIE['auth_token'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$token = $_COOKIE['auth_token'];
+$verifytoken_url = 'http://localhost:9000/api/user/verifytoken';
+$options = [
+    'http' => [
+        'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+        'method' => 'GET'
+    ]
+];
+$context = stream_context_create($options);
+$result = @file_get_contents($verifytoken_url, false, $context);
+
+if ($result === FALSE) {
+    header("Location: login.php");
+    exit();
+}
+
+$response = json_decode($result, true);
+
+if (!$response['valid']) {
+    header("Location: login.php");
+    exit();
+}
+
+// Get all users from the api
+$user_url = 'http://localhost:9000/api/user/all';
+$options = [
+    'http' => [
+        'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+        'method' => 'GET'
+    ]
+];
+
+$context = stream_context_create($options);
+
+$user_result = @file_get_contents($user_url, false, $context);
+
+$users_response = json_decode($user_result, true);
+
+$users = $users_response['users'];
+
+error_log(print_r($users_response, true));
 
 // $user_id = $_SESSION['id'];
 
@@ -32,17 +79,18 @@ error_reporting(0);
             <h3>Welcome, </h3>;
             <p>You are logged in with the following details:</p>
             <div class="login-info">
-                <p>Last Login: 2024-11-05 10:30 AM <?php echo  $row['dateTime'] . "" ?>.</p>
+                <p>Last Login: 2024-11-05 10:30 AM <?php echo $row['dateTime'] . "" ?>.</p>
             </div>
         </div>
 
         <div class="dashboard-section" id="user_details">
 
             <div class="user_info">
-                <label for="first-Name">First Name: <?php echo "<p>" . " " .  $row['first_name'] . "" . "</p>"; ?></label>
-                <label for="last-Name">Last Name: <?php echo "<p>" . " " .  $row['last_name'] . "" . "</p>"; ?></label>
-                <label for="email">email:<?php echo "<p>" . " " .  $row['email'] . "" . "</p>"; ?></label>
-                <label for="role">Role: <?php echo "<p>" . " " .  $row['user_role'] . "" .  "</p>"; ?></label>
+                <label for="first-Name">First Name:
+                    <?php echo "<p>" . " " . $row['first_name'] . "" . "</p>"; ?></label>
+                <label for="last-Name">Last Name: <?php echo "<p>" . " " . $row['last_name'] . "" . "</p>"; ?></label>
+                <label for="email">email:<?php echo "<p>" . " " . $row['email'] . "" . "</p>"; ?></label>
+                <label for="role">Role: <?php echo "<p>" . " " . $row['user_role'] . "" . "</p>"; ?></label>
             </div>
         </div>
 

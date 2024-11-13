@@ -131,6 +131,11 @@ userRouter.post("/register", async (req: Request, res: Response) => {
 		await User.create(newUser);
 		//Implicitly apply Roles.Staff for users created in this manner.
 		await newUser.save();
+		await sendEmail(
+			[email],
+			"Registration Successful",
+			"Your registraion was successful!"
+		);
 		res.status(201).json({
 			success: true,
 			message: "User registered successfully",
