@@ -79,7 +79,7 @@ $ideasResponse = json_decode($ideasResult, true);
     <?php
 
     // ... (previous code remains the same)
-    
+
     // Pagination
     $ideasPerPage = 5;
     $totalIdeas = count($ideasResponse['ideas']);
@@ -94,7 +94,7 @@ $ideasResponse = json_decode($ideasResult, true);
         $currentIdeas = array_slice($ideasResponse['ideas'], $startIndex, $ideasPerPage);
 
         foreach ($currentIdeas as $idea) {
-            ?>
+    ?>
             <div class="newest-idea-card">
                 <h3><?php echo htmlspecialchars($idea['ideaTitle']); ?></h3>
                 <p><?php echo htmlspecialchars($idea['ideaDescription']); ?></p>
@@ -117,6 +117,7 @@ $ideasResponse = json_decode($ideasResult, true);
                             class="fa-regular fa-thumbs-up"></i></button>
                     <button class="dislike-button" onclick="dislikeIdea('<?php echo $idea['_id']; ?>')"><i
                             class="fa-regular fa-thumbs-down"></i></button>
+                    <button class="dislike-button" onclick="reportIdea('<?php echo $idea['_id']; ?>')"><i class="fa-regular fa-flag"></i></button>
                 </div>
 
                 <!-- Comments Section -->
@@ -135,7 +136,7 @@ $ideasResponse = json_decode($ideasResult, true);
                         Comment</button>
                 </div>
             </div>
-            <?php
+    <?php
         }
 
         // Close the single .newest-ideas container
@@ -160,13 +161,12 @@ $ideasResponse = json_decode($ideasResult, true);
                 echo '<a href="?page=' . $i . '" style="color: black; text-decoration: none; margin: 0 5px; display: inline-block; width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; border: 1px solid black;">' . $i . '</a>';
             }
         }
-        
+
         if ($currentPage < $totalPages) {
             echo '<a href="?page=' . ($currentPage + 1) . '" style="color: black; text-decoration: none; margin: 0 5px; display: inline-block; padding: 5px 10px; border-radius: 15px; border: 1px solid black;">Next</a>';
             echo '<a href="?page=' . $totalPages . '" style="color: black; text-decoration: none; margin: 0 5px; display: inline-block; padding: 5px 10px; border-radius: 15px; border: 1px solid black;">Last</a>';
         }
         echo '</div>';
-
     } else {
         echo "<p>No ideas found or there was an error fetching the ideas.</p>";
     }

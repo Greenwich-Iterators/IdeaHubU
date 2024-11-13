@@ -94,10 +94,10 @@ $lastlogin = date('Y-m-d h:i A', strtotime($lastlogin_response['lastLogin']));
         <!-- The Dashboard Navigation Menu -->
         <nav>
             <div class="nav-links" id="staff-nav">
-                <a href="#"><i class="fas fa-home"></i> Home</a>
-                <a href="#"><i class="fa fa-pencil"></i> Submit</a>
-                <a href="#"><i class="fas fa-eye"></i> View</a>
-                <a href="#"><i class="fa fa-comment"></i> Comment</a>
+                <a href="./index.php"><i class="fas fa-home"></i> Home</a>
+                <a href="./submissions.php"><i class="fa fa-pencil"></i> Submit</a>
+                <a href="./concept-hub.php"><i class="fas fa-eye"></i> View</a>
+                <a href="./concept-hub"><i class="fa fa-comment"></i> Comment</a>
             </div>
 
 
