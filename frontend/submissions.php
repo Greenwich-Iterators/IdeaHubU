@@ -118,10 +118,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 	$ideaResponse = json_decode($ideaResult, true);
 	if ($ideaResponse && isset($ideaResponse['success']) && $ideaResponse['success']) {
 		$message .= " Your idea has been successfully submitted.";
-		echo "<script>showAlert('$message');</script>";
+		error_log(print_r($ideaResult, true));
+		$_SESSION['notification'] = [
+			'message' => $message,
+			'type' => 'success'
+		];
 	} else {
 		$message .= " There was an error submitting your idea. Please try again.";
-		echo "<script>showAlert('$message');</script>";
+		error_log(print_r($ideaResponse, true));
+		$_SESSION['notification'] = [
+			'message' => $message,
+			'type' => 'error'
+		];
 	}
 }
 
@@ -176,6 +184,7 @@ function likeIdea($id): bool
 
 		<!-- The Submissions Guidelines Section -->
 		<div id="main-submission-guidelines">
+
 			<h1>Submission Guidelines</h1>
 			<p>Want to submit an idea? Here's how to:
 				<br>
@@ -219,7 +228,14 @@ function likeIdea($id): bool
 			?>
 
 			<h2>Submit your Idea</h2>
-
+			<?php
+			if (isset($_SESSION['notification'])) {
+				$notificationType = $_SESSION['notification']['type'];
+				$notificationMessage = $_SESSION['notification']['message'];
+				echo "<div class='notification $notificationType'>$notificationMessage</div>";
+				unset($_SESSION['notification']);
+			}
+			?>
 			<div>
 
 			</div>
@@ -642,3 +658,24 @@ include_once 'footer.php';
 		termsCons.classList.toggle("hide-Terms")
 	}
 </script>
+
+<style>
+	.notification {
+		padding: 10px;
+		margin-bottom: 10px;
+		border-radius: 5px;
+		text-align: center;
+	}
+
+	.notification.success {
+		background-color: #d4edda;
+		color: #155724;
+		border: 1px solid #c3e6cb;
+	}
+
+	.notification.error {
+		background-color: #f8d7da;
+		color: #721c24;
+		border: 1px solid #f5c6cb;
+	}
+</style>
