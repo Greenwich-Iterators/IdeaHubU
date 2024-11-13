@@ -210,7 +210,7 @@ function removeCategory($id)
                 <!-- Display the list of users -->
                 <?php
                 // The Array where users are coming from
-                
+
 
                 // Check if there are users in the array Coming from Niza
                 if (!empty($users)) {
@@ -230,7 +230,6 @@ function removeCategory($id)
                         echo '<td>';
                         echo '<button onclick="enableUser(\'' . htmlspecialchars($user['_id']) . '\')">Enable</button> ';
                         echo '<button onclick="disableUser(\'' . htmlspecialchars($user['_id']) . '\')">Disable</button>';
-                        echo '</td>';
                         echo '</tr>';
                     }
 
