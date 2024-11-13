@@ -12,6 +12,7 @@ Step 3: Download and Install NodeJS verson 22.11.0 or above: https://nodejs.org/
 
 Step 4: (Skip this step if you have PHP installed) After NodeJs is installed. Open an Administrative Powershell terminal (On windows search, search for powershell and run with Admin Privileges). This is neccessary because chocolatey needs this permission to install PHP very easily. 
         - Run this command: `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))` in the administrator powershell terminal.
+        - Run this command: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
         - Run this command to install chocolatey: `choco install php`
 Step 5: Close all Powershell terminals and Open default (no admin) Powershell terminal. 
         - Run this command to enter the IdeaHubU directory: `cd Desktop/IdeaHubU` (ensure this is done for the next commands)
