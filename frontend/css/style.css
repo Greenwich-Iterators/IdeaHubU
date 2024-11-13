@@ -3705,7 +3705,7 @@ select#timeFilter {
 	display: grid;
 	justify-content: center;
 	grid-template-columns: repeat(auto-fit, minmax(200px, 220px));
-	gap: 0.5em;
+	gap: 1em;
 	width: 100%;
 	padding: 2em 1em;
 }
@@ -3725,9 +3725,11 @@ select#timeFilter {
 }
 
 .newest-idea-card:nth-child(even) {
-	background-color: rgba(128, 0, 128, 0.1);
+	background-color: rgba(128, 0, 128, 0.3);
 }
-
+.newest-idea-card:nth-child(odd) {
+	background-color: rgba(255, 166, 0, 0.208);
+}
 .newest-idea-card h3 {
 	font-size: 0.9em;
 	margin: auto;
@@ -4516,9 +4518,9 @@ aside ul {
 
 .user_info {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	grid-template-columns: repeat(2, minmax(220px, max-content));
 	gap: 10px;
-	justify-content: left;
+	justify-content: center;
 	align-items: center;
 	width: 100%;
 }
@@ -4529,7 +4531,7 @@ aside ul {
 	text-align: left;
 	font-weight: 600;
 	font-size: 0.9em;
-	border: 1px solid rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.5);
 	padding: 5px 1em;
 	color: #fff;
 }
@@ -4607,25 +4609,6 @@ aside ul {
 	padding: 1em;
 }
 
-.user_info {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	gap: 10px;
-	justify-content: left;
-	align-items: center;
-	width: 100%;
-}
-
-.user_info label {
-	display: flex;
-	align-items: center;
-	text-align: left;
-	font-weight: 600;
-	font-size: 0.9em;
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	padding: 5px 1em;
-	color: #fff;
-}
 /*--------- The dashboard Navigation menu---------- */
 
 .dashboard-wrapper nav {
@@ -4691,19 +4674,10 @@ aside ul {
 
 /* ----The User Login Details---- */
 .dashboard-section {
-	display: grid;
+	display: flex;
 	flex-direction: column;
 	width: 100%;
 	padding: 1em;
-}
-
-.user_info {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	gap: 10px;
-	justify-content: left;
-	align-items: center;
-	width: 100%;
 }
 
 #manager-dashboard-page .user_info label {
@@ -4713,8 +4687,9 @@ aside ul {
 	font-weight: 600;
 	font-size: 0.9em;
 	border: 1px solid rgb(255, 165, 0, 0.7);
-	background-color: rgb(255, 165, 0, 0.2);
-	padding: 5px 1em;
+	border-radius: 4px;
+	background-color: rgb(255, 165, 0, 0.8);
+	padding: 0 1em;
 	color: #fff;
 }
 /*--------- The dashboard Navigation menu---------- */
@@ -4753,16 +4728,19 @@ aside ul {
 
 .content-section {
 	display: none;
-}
-
-.content-section {
-	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: max-content;
+	height: 350px;
+	max-height: 400px;
+	overflow: hidden auto;
 	padding: 1em;
 	background-color: rgba(255, 255, 255, 0.8);
 }
+
+/* .content-section {
+	display: flex;
+	
+} */
 
 /*********************The STAFF DASHBOARD **************** */
 
@@ -4801,25 +4779,6 @@ aside ul {
 	padding: 1em;
 }
 
-.user_info {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-	gap: 10px;
-	justify-content: left;
-	align-items: center;
-	width: 100%;
-}
-
-.user_info label {
-	display: flex;
-	align-items: center;
-	text-align: left;
-	font-weight: 600;
-	font-size: 0.9em;
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	padding: 5px 1em;
-	color: #fff;
-}
 /*--------- The dashboard Navigation menu---------- */
 
 .dashboard-wrapper nav {

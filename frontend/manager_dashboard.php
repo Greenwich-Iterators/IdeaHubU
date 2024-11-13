@@ -92,7 +92,7 @@ error_log(print_r($lastlogin, true));
     <div class="dashboard-wrapper">
 
         <div class="welcome-header">
-            <h3>Welcome, </h3>;
+            <h3>Welcome, <?php echo $response['firstname']; ?> </h3>;
             <p>You are logged in with the following details:</p>
             <div class="login-info">
                 <p>Last Login: <?php echo $lastlogin . "" ?>.</p>
