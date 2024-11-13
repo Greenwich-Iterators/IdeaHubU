@@ -1,11 +1,11 @@
 import express, { Request, Response } from "express";
-import Department from "../models/departmentModel";
+import Departments from "../models/departmentModel";
 
 const departmentRouter = express.Router();
 
 departmentRouter.get("/get", async (req: Request, res: Response) => {
 	try {
-		const allDepartments = await Department.find();
+		const allDepartments = await Departments.find();
 
 		res.json({
 			success: true,
@@ -19,12 +19,14 @@ departmentRouter.get("/get", async (req: Request, res: Response) => {
 	}
 });
 
-departmentRouter.get("/getone", async (req: Request, res: Response) => {
+departmentRouter.get("/name", async (req: Request, res: Response) => {
 	const { departmentId } = req.body;
 	try {
+		const dept = await Departments.findOne({ _id: departmentId });
+		console.log(dept);
 		res.status(200).json({
 			success: true,
-			department: await Department.findById(departmentId),
+			departmentName: dept?.name,
 		});
 	} catch (error) {
 		res.status(500).json({
@@ -34,6 +36,16 @@ departmentRouter.get("/getone", async (req: Request, res: Response) => {
 	}
 });
 
+departmentRouter.post("/create", async (req: Request, res: Response) => {
+	// Save new department in the database
+	const { departmentname } = req.body;
+	const newdept = await Departments.create({
+		name: departmentname,
+	});
+
+	const saveddept = await newdept.save();
+	res.status(200).json(saveddept);
+});
 departmentRouter.post("/seed", async (req: Request, res: Response) => {
 	// try{
 	// 	const newDepartments = [
