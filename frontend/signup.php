@@ -116,10 +116,10 @@ if (isset($_POST['submit'])) {
 				<label for="departmentDropdown">Select Department:</label>
 				<select id="selectItems" name="department_Id" onchange="selectDepartment()">
 					<option value="">--Select a Department -</option>
-					<option value="6731245640abf475a4d7e94e">Finance</option>
-					<option value="673124be40abf475a4d7e94f ">Economics</option>
-					<option value="673124e740abf475a4d7e950 ">Literature and Language</option>
-					<option value="6731250640abf475a4d7e951">Human Resource</option>
+					<option value="6734c975346b5a6a02f52ea7">Finance</option>
+					<option value="6734c97d346b5a6a02f52eaa ">Economics</option>
+					<option value="6734c985346b5a6a02f52ead ">Literature and Language</option>
+					<option value="6734c994346b5a6a02f52eb0">Human Resource</option>
 
 				</select>
 

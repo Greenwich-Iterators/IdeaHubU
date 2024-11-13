@@ -53,7 +53,7 @@ function getDepartmentName($departmentId)
 {
     global $token;
     $department_result = @file_get_contents(
-        "http://localhost:9000/api/department/getone",
+        "http://localhost:9000/api/department/name",
         false,
         stream_context_create([
             'http' => [
@@ -66,7 +66,8 @@ function getDepartmentName($departmentId)
         ])
     );
     $department_response = json_decode($department_result, true);
-    return $department_response["name"];
+    error_log(print_r($department_response, true));
+    return $department_response["departmentName"];
 }
 
 // Last login
@@ -215,7 +216,7 @@ function removeCategory($id)
                 // Check if there are users in the array Coming from Niza
                 if (!empty($users)) {
                     echo '<table border="1" cellpadding="10">';
-                    echo '<tr><th>First Name</th><th>Last Name</th><th>Username</th><th>Email</th><th>Role</th></tr>';
+                    echo '<tr><th>First Name</th><th>Last Name</th><th>Username</th><th>Email</th><th>Role</th><th>Department</th></tr>';
 
                     // Loop through each user and display their information
                     foreach ($users as $user) {
