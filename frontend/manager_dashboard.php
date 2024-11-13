@@ -49,6 +49,27 @@ $users_response = json_decode($user_result, true);
 
 $users = $users_response['users'];
 
+function getDepartmentName($departmentId)
+{
+    global $token;
+    $department_result = @file_get_contents(
+        "http://localhost:9000/api/department/getone",
+        false,
+        stream_context_create([
+            'http' => [
+                'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+                'method' => 'GET',
+                "content" => json_encode([
+                    'departmentId' => $departmentId
+                ])
+            ]
+        ])
+    );
+    $department_response = json_decode($department_result, true);
+    return $department_response["name"];
+}
+
+// Last login
 $lastlogin_result = @file_get_contents(
     "http://localhost:9000/api/user/lastlogin",
     false,
@@ -189,7 +210,7 @@ function removeCategory($id)
                 <!-- Display the list of users -->
                 <?php
                 // The Array where users are coming from
-
+                
 
                 // Check if there are users in the array Coming from Niza
                 if (!empty($users)) {
@@ -205,6 +226,7 @@ function removeCategory($id)
                         echo '<td>' . htmlspecialchars($user['username']) . '</td>';
                         echo '<td>' . htmlspecialchars($user['email']) . '</td>';
                         echo '<td>' . htmlspecialchars($user['role']) . '</td>';
+                        echo '<td>' . htmlspecialchars(getDepartmentName($user['departmentId'])) . '</td>';
                         echo '<td>';
                         echo '<button onclick="enableUser(\'' . htmlspecialchars($user['_id']) . '\')">Enable</button> ';
                         echo '<button onclick="disableUser(\'' . htmlspecialchars($user['_id']) . '\')">Disable</button>';

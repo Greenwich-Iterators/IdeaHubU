@@ -4,7 +4,7 @@ const ObjectID = mongoose.Schema.Types.ObjectId;
 
 const departmentSchema = new mongoose.Schema({
 	name: { type: String, required: true },
-	coordinator: { type: ObjectID, ref: "User", required: true },
+	coordinator: { type: ObjectID, ref: "User", required: false },
 });
 
 export default mongoose.model("Department", departmentSchema);

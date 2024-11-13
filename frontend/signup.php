@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 	$cPassword = $_POST['cPassword'];
-
+	// error_log(print_r($department, true));
 	if (!empty($firstname) && !empty($lastname) && !empty($username) && !empty($password) && !empty($department) && !is_numeric($firstname) && !is_numeric($lastname) && !is_numeric($username) && !is_numeric($department)) {
 		if ($password == $cPassword) {
 			// Prepare data for API call
