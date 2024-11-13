@@ -4732,15 +4732,34 @@ aside ul {
 	width: 100%;
 	height: 350px;
 	max-height: 400px;
-	overflow: hidden auto;
 	padding: 1em;
 	background-color: rgba(255, 255, 255, 0.8);
 }
 
-/* .content-section {
-	display: flex;
-	
-} */
+.content-section-contents {
+	position: relative;
+	display: block;
+	text-align: center;
+	overflow: hidden auto;
+	width: 100%;
+	height: 100%;
+	font-weight: 600;
+}
+
+.content-section span {
+	font-weight: 600;
+	font-size: 1em;
+}
+
+
+.content-section-contents .btn {
+	width: 150px;
+	padding: 0.5px 8px;
+	background-color: rgba(0, 0, 0, 0.1);
+	border: 1px rgba(0, 0, 0, 0.7) solid;
+	border-radius: 30px;
+	color: darkslategray;
+}
 
 /*********************The STAFF DASHBOARD **************** */
 

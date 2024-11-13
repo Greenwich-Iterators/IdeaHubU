@@ -174,16 +174,21 @@ function removeCategory($id)
         </nav>
 
         <!-- Sections for each menu item -->
-        <div id="manageCategories" class="content-section">Content for Manage Categories</div>
-        <div id="viewIdeas" class="content-section">Content for View Ideas</div>
-        <div id="commentsReports" class="content-section">Content for Comments and Reports</div>
-        <div id="userManagement" class="content-section">Content for User Management</div>
-        <div id="exportData" class="content-section">Content for Export Data</div>
-        <div id="exceptionReports" class="content-section">Content for Exception Reports</div>
-        <div id="statistics" class="content-section">Content for Statistics</div>
-        <div id="systemSettings" class="content-section">Content for System Settings</div>
-
-
+        <div id="manageCategories" class="content-section"><span>Content for Manage Categories</span></div>
+        <div id="viewIdeas" class="content-section"><span>Content for View Ideas</span></div>
+        <div id="commentsReports" class="content-section"><span>Content for Comments and Reports</span></div>
+        <div id="userManagement" class="content-section"><span> User Management</span>
+            <br>
+            <div class="content-section-contents">
+                <button class="btn" onclick="addUser()">Enable User</button>
+                <button class="btn" onclick="removeUser()">Disable User</button>
+            </div>
+            </span>
+        </div>
+        <div id="exportData" class="content-section"><span>Content for Export Data</span></div>
+        <div id="exceptionReports" class="content-section"><span>Content for Exception Reports</span></div>
+        <div id="statistics" class="content-section"><span>Content for Statistics</span></div>
+        <div id="systemSettings" class="content-section"><span>Content for System Settings</span></div>
 
 
     </div>
@@ -203,5 +208,16 @@ include_once 'footer.php';
 
         // Show the selected section
         document.getElementById(sectionId).style.display = 'block';
+    }
+
+    // Button functionality for User Management
+    function addUser() {
+        alert("Add User functionality coming soon!");
+        // Add your code here to implement the add user functionality
+    }
+
+    function removeUser() {
+        alert("Remove User functionality coming soon!");
+        // Add your code here to implement the remove user functionality
     }
 </script>
