@@ -77,11 +77,23 @@ $ideasResponse = json_decode($ideasResult, true);
     </div>
 
     <?php
+
+    // ... (previous code remains the same)
+    
+    // Pagination
+    $ideasPerPage = 5;
+    $totalIdeas = count($ideasResponse['ideas']);
+    $totalPages = ceil($totalIdeas / $ideasPerPage);
+    $currentPage = isset($_GET['page']) ? max(1, min($_GET['page'], $totalPages)) : 1;
+    $startIndex = ($currentPage - 1) * $ideasPerPage;
     if (isset($ideasResponse['success']) && $ideasResponse['success'] && isset($ideasResponse['ideas'])) {
         // Start the single .newest-ideas container
         echo '<div class="newest-ideas">';
 
-        foreach ($ideasResponse['ideas'] as $idea) {
+        // Slice the ideas array to get only the ideas for the current page
+        $currentIdeas = array_slice($ideasResponse['ideas'], $startIndex, $ideasPerPage);
+
+        foreach ($currentIdeas as $idea) {
             ?>
             <div class="newest-idea-card">
                 <h3><?php echo htmlspecialchars($idea['ideaTitle']); ?></h3>
@@ -96,22 +108,19 @@ $ideasResponse = json_decode($ideasResult, true);
                     ?>
                 </p>
                 <p>Created at: <?php echo date('Y-m-d H:i:s', strtotime($idea['createdAt'])); ?></p>
-                <p id="likeCount-<?php echo $ideaId; ?>">Likes: <?php echo count($idea['userLikes']); ?></p>
-                <p id="dislikeCount-<?php echo $ideaId; ?>">Dislikes: <?php echo count($idea['userDislikes']); ?></p>
+                <p id="likeCount-<?php echo $idea['_id']; ?>">Likes: <?php echo count($idea['userLikes']); ?></p>
+                <p id="dislikeCount-<?php echo $idea['_id']; ?>">Dislikes: <?php echo count($idea['userDislikes']); ?></p>
 
                 <!-- Like and Dislike Buttons -->
-
                 <div class="like-buttonz">
-                    <button class="like-button" onclick="likeIdea(<?php echo $ideaId; ?>)"><i
+                    <button class="like-button" onclick="likeIdea('<?php echo $idea['_id']; ?>')"><i
                             class="fa-regular fa-thumbs-up"></i></button>
-                    <button class="dislike-button" onclick="dislikeIdea(<?php echo $ideaId; ?>)"><i
+                    <button class="dislike-button" onclick="dislikeIdea('<?php echo $idea['_id']; ?>')"><i
                             class="fa-regular fa-thumbs-down"></i></button>
                 </div>
 
-
                 <!-- Comments Section -->
                 <div class="comments-section">
-
                     <div class="comments-list">
                         <?php
                         if (isset($idea['comments'])) {
@@ -122,7 +131,8 @@ $ideasResponse = json_decode($ideasResult, true);
                         ?>
                     </div>
                     <textarea class="comment-input" placeholder="Add a comment..."></textarea>
-                    <button id="idea-card-submit-btn" onclick="addComment(<?php echo $ideaId; ?>)">Submit Comment</button>
+                    <button class="idea-card-submit-btn" onclick="addComment('<?php echo $idea['_id']; ?>')">Submit
+                        Comment</button>
                 </div>
             </div>
             <?php
@@ -130,10 +140,39 @@ $ideasResponse = json_decode($ideasResult, true);
 
         // Close the single .newest-ideas container
         echo '</div>';
+
+        // Pagination controls
+        echo '<div class="pagination">';
+        echo '<p>Page ' . $currentPage . ' of ' . $totalPages . '</p>';
+        if ($currentPage > 1) {
+            echo '<a href="?page=1" style="color: black; text-decoration: none; margin: 0 5px;">First</a>';
+            echo '<a href="?page=' . ($currentPage - 1) . '" style="color: black; text-decoration: none; margin: 0 5px;">Previous</a>';
+        }
+
+        // Display page numbers
+        $startPage = max(1, $currentPage - 2);
+        $endPage = min($totalPages, $currentPage + 2);
+
+        for ($i = $startPage; $i <= $endPage; $i++) {
+            if ($i == $currentPage) {
+                echo '<span style="font-weight: bold; margin: 0 5px; display: inline-block; width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; border: 1px solid black;">' . $i . '</span>';
+            } else {
+                echo '<a href="?page=' . $i . '" style="color: black; text-decoration: none; margin: 0 5px; display: inline-block; width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; border: 1px solid black;">' . $i . '</a>';
+            }
+        }
+        
+        if ($currentPage < $totalPages) {
+            echo '<a href="?page=' . ($currentPage + 1) . '" style="color: black; text-decoration: none; margin: 0 5px; display: inline-block; padding: 5px 10px; border-radius: 15px; border: 1px solid black;">Next</a>';
+            echo '<a href="?page=' . $totalPages . '" style="color: black; text-decoration: none; margin: 0 5px; display: inline-block; padding: 5px 10px; border-radius: 15px; border: 1px solid black;">Last</a>';
+        }
+        echo '</div>';
+
     } else {
         echo "<p>No ideas found or there was an error fetching the ideas.</p>";
     }
     ?>
+
+
 
     <!-- Ideas Tabs Section -->
     <div class="tabs">
