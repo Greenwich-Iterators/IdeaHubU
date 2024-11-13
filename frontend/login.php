@@ -5,8 +5,8 @@ session_start();
 error_reporting(1);
 
 if (isset($_POST['submit'])) {
-	$email = $_POST['email'];
-	$password = $_POST['password'];
+	$email = trim($_POST['email']);
+	$password = trim($_POST['password']);
 
 	if (!empty($email) && !empty($password)) {
 		$data = array(
