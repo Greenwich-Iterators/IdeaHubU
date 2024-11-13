@@ -1,11 +1,24 @@
-Install node and php
+How to Setup:
 
-The Backend runs on `http://localhost port 9000`
-The front end runs on `https://localhost port 3000`
+Step 1: Download and install Git: https://git-scm.com/downloads
+Step 2: Run these commands (individually) in an open powershell window.
+        `cd Desktop`
+        `git clone https://github.com/Greenwich-Iterators/IdeaHubU/`
+Step 3: Download and Install NodeJS verson 22.11.0 or above: https://nodejs.org/en/download/prebuilt-installer 
+        - Accept the terms and conditions and click next
+        - Click next again
+        - On the custom setup, click on the icon next to the `npm package manager` and select "Entire feature will be installed on local harddrive" and click next.
+        - Select the checkbox to "Automatically install neccessary tools." which will install chocolatey which will be used later.
 
-Run the command `npm run both`
+Step 4: (Skip this step if you have PHP installed) After NodeJs is installed. Open an Administrative Powershell terminal (On windows search, search for powershell and run with Admin Privileges). This is neccessary because chocolatey needs this permission to install PHP very easily. 
+        - Run this command: `Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))` in the administrator powershell terminal.
+        - Run this command to install chocolatey: `choco install php`
+Step 5: Close all Powershell terminals and Open default (no admin) Powershell terminal. 
+        - Run this command to enter the IdeaHubU directory: `cd Desktop/IdeaHubU` (ensure this is done for the next commands)
+        - Run this command to check if PHP was installed: `php --version`. (if it responds with no errors, it is installed. If not, go to step 4)
+        - Run this command to check if Node and npm was installed: `npm --version`. (If it responds with no errors, it is installed. If not, go to step 3)
+        - Run this command to install the packages needeed to run the software: `npm install`.
+Step 6: After completing step 5, check your file explorer of the folder IdeaHubU to ensure that it contains a .env file.
+        - Go back to the powershell you had open and run this command `npm run both`
+        - Open https://localhost:3000/ to view the website.
 
-GLHF TEAM!
-
-Guzzle PHP for uploading documents in the future.
-https://docs.uploadthing.com/api-reference/openapi-spec
