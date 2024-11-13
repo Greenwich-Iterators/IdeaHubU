@@ -118,8 +118,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
 	$ideaResponse = json_decode($ideaResult, true);
 	if ($ideaResponse && isset($ideaResponse['success']) && $ideaResponse['success']) {
 		$message .= " Your idea has been successfully submitted.";
+		echo "<script>showAlert('$message');</script>";
 	} else {
 		$message .= " There was an error submitting your idea. Please try again.";
+		echo "<script>showAlert('$message');</script>";
 	}
 }
 
@@ -205,7 +207,7 @@ function likeIdea($id): bool
 		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="idea-form" method="POST" enctype="multipart/form-data">
 			<?php
 			// ...
-
+			
 			// Display the error messages
 			if (isset($message)) {
 				foreach ($message as $msg) {
@@ -603,6 +605,10 @@ include_once 'footer.php';
 			z.style.display = "block";
 		}
 	}
+
+	function showAlert(message) {
+		alert(message);
+	}
 </script>
 
 <script type="text/javascript" src="./js/lightbox-plus-jquery.min.js"></script>
@@ -611,10 +617,10 @@ include_once 'footer.php';
 	// To enable the Submit Idea button after the Terms and Conditions are read
 
 
-	$(function() {
+	$(function () {
 		var ideaButton = $('#submitIdea');
 		ideaButton.attr('disabled', 'disabled')
-		$('#acceptTerms').change(function() {
+		$('#acceptTerms').change(function () {
 
 			if (this.checked) {
 				ideaButton.removeAttr('disabled');
