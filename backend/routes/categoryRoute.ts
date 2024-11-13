@@ -34,6 +34,7 @@ categoryRouter.post("/add", async (req: Request, res: Response) => {
 		res.status(201).json({
 			success: true,
 			message: `${newCategory.name} Category added successfully`,
+			categoryId: newCategory._id,
 		});
 	} catch (error: any) {
 		res.status(500).json({

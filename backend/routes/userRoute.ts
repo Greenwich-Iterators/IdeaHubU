@@ -194,7 +194,7 @@ userRouter.post("/roles", async (req: Request, res: Response) => {
 });
 
 //change user's blocked status
-userRouter.post("/block", async (req: Request, res: Response) => {
+userRouter.post("/disable", async (req: Request, res: Response) => {
 	const { userId } = req.body;
 
 	const user = await User.findById(userId);

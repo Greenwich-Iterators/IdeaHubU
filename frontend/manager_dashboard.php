@@ -65,27 +65,73 @@ $lastlogin_result = @file_get_contents(
 
 $lastlogin_response = json_decode($lastlogin_result, true);
 $lastlogin = date('Y-m-d h:i A', strtotime($lastlogin_response['lastLogin']));
-error_log(print_r($users, true));
-error_log(print_r($lastlogin, true));
+// error_log(print_r($users, true));
+// error_log(print_r($lastlogin, true));
 
-// $user_id = $_SESSION['id'];
+// Categories Array
+$categories = [];
 
-// This code will send the user to the login page to login before accessing this page
-// if (!isset($_SESSION['first_name'])) {
+// Get all categories from the api
 
+$category_result = @file_get_contents(
+    'http://localhost:9000/api/category/all',
+    false,
+    stream_context_create([
+        'http' => [
+            'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+            'method' => 'GET'
+        ]
+    ])
+);
 
-//     $_SESSION['message'] = 'You must be logged in as a user for you to access this page!<br>
-//     Please Log in or Sign up.';
-//     header('location:login.php');
-//     exit;
-// }
+$categories_response = json_decode($category_result, true);
 
-// Make a connection to the database 
-// $sql = "SELECT * FROM members WHERE id='{$_SESSION['id']}' ";
-// $result = mysqli_query($conn, $sql);
-// $row = mysqli_fetch_assoc($result);
+if ($categories_response && isset($categories_response['success']) && $categories_response['success']) {
+    $categories = $categories_response['categories'];
+}
 
-// 
+error_log(print_r($categories, true));
+function addCategory($name)
+{
+    global $token;
+    $category_result = @file_get_contents(
+        "http://localhost:9000/api/category/add",
+        false,
+        stream_context_create([
+            'http' => [
+                'header' => "Content-type: application/json\r\nAuthorization: Bearer $token\r\n",
+                'method' => 'POST',
+                "content" => json_encode([
+                    'name' => $name
+                ])
+            ]
+        ])
+    );
+    $category_response = json_decode($category_result, true);
+    if ($category_response['success']) {
+        // append to $category array
+        array_push($categories, [
+            'id' => $category_response['categoryId'],
+            'name' => $name
+        ]);
+
+        echo '<div class="alert alert-success">Category Added Successfully!</div>';
+    } else {
+        echo '<div class="alert alert-danger">Failed to Add Category!</div>';
+    }
+}
+
+function removeCategory($id)
+{
+    global $categories;
+    // Remove category from $categories array
+    foreach ($categories as $key => $category) {
+        if ($category['id'] == $id) {
+            unset($categories[$key]);
+            break;
+        }
+    }
+}
 ?>
 
 <div id="manager-dashboard-page">
@@ -104,7 +150,8 @@ error_log(print_r($lastlogin, true));
             <div class="user_info">
                 <label for="first-Name">First Name:
                     <?php echo "<p>" . "  " . $response['firstname'] . "" . "</p>"; ?></label>
-                <label for="last-Name">Last Name: <?php echo "<p>" . "  " . $response['lastname'] . "" . "</p>"; ?></label>
+                <label for="last-Name">Last Name:
+                    <?php echo "<p>" . "  " . $response['lastname'] . "" . "</p>"; ?></label>
                 <label for="email">email:<?php echo "<p>" . "  " . $response['email'] . "" . "</p>"; ?></label>
                 <label for="role">Role: <?php echo "<p>" . "  " . $response['userRole'] . "" . "</p>"; ?></label>
             </div>
