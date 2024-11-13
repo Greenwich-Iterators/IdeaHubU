@@ -9,15 +9,12 @@ if (isset($_POST['submit'])) {
 	$password = $_POST['password'];
 
 	if (!empty($email) && !empty($password)) {
-		// Prepare data for API call
 		$data = array(
 			'email' => $email,
 			'password' => $password
 		);
 
 		$url = 'http://localhost:9000/api/user/login';
-
-		// Prepare the options for the HTTP stream
 		$options = [
 			'http' => [
 				'method' => 'POST',
@@ -26,12 +23,9 @@ if (isset($_POST['submit'])) {
 			]
 		];
 
-		// Create a stream context
 		$context = stream_context_create($options);
 
-		// Send the request
 		$response = @file_get_contents($url, false, $context);
-
 
 		$result = json_decode($response, true);
 		$httpCode = $http_response_header[0];

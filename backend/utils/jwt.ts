@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Types } from "mongoose";
-import User, { Roles } from "../models/userModel";
+import { Roles } from "../models/userModel";
 
 const TOKEN_SECRET = process.env.AUTH_SECRET as string;
 

@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer";
-import User from "../models/userModel";
 
 const ICLOUD_EMAIL = process.env.ICLOUD_EMAIL;
 const ICLOUD_PASSWORD = process.env.ICLOUD_PASSWORD;
