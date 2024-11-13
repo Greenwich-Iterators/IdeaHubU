@@ -4751,6 +4751,19 @@ aside ul {
 	background: rgb(128, 0, 128);
 }
 
+.content-section {
+	display: none;
+}
+
+.content-section {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: max-content;
+	padding: 1em;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
 /*********************The STAFF DASHBOARD **************** */
 
 #staff-dashboard-page {

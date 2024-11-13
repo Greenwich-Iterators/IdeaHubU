@@ -50,7 +50,7 @@ $users_response = json_decode($user_result, true);
 
 $users = $users_response['users'];
 
-error_log(print_r($users_response, true));
+error_log(print_r($users, true));
 
 // $user_id = $_SESSION['id'];
 
@@ -97,18 +97,28 @@ error_log(print_r($users_response, true));
         <!-- The Dashboard Navigation Menu -->
         <nav>
             <div class="nav-links" id="manager-nav">
-                <a href="#"><i class="fas fa-tags"></i> Manage Categories</a>
-                <a href="#"><i class="fas fa-lightbulb"></i> View Ideas</a>
-                <a href="#"><i class="fas fa-comments"></i> Comments and Reports</a>
-                <a href="#"><i class="fas fa-user-cog"></i> User Management</a>
-                <a href="#"><i class="fas fa-file-export"></i> Export Data</a>
-                <a href="#"><i class="fas fa-exclamation-circle"></i> Exception Reports</a>
-                <a href="#"><i class="fas fa-chart-bar"></i> Statistics</a>
-                <a href="#"><i class="fas fa-cogs"></i> System Settings</a>
+                <a href="#" onclick="showSection('manageCategories')"><i class="fas fa-tags"></i> Manage Categories</a>
+                <a href="#" onclick="showSection('viewIdeas')"><i class="fas fa-lightbulb"></i> View Ideas</a>
+                <a href="#" onclick="showSection('commentsReports')"><i class="fas fa-comments"></i> Comments and Reports</a>
+                <a href="#" onclick="showSection('userManagement')"><i class="fas fa-user-cog"></i> User Management</a>
+                <a href="#" onclick="showSection('exportData')"><i class="fas fa-file-export"></i> Export Data</a>
+                <a href="#" onclick="showSection('exceptionReports')"><i class="fas fa-exclamation-circle"></i> Exception Reports</a>
+                <a href="#" onclick="showSection('statistics')"><i class="fas fa-chart-bar"></i> Statistics</a>
+                <a href="#" onclick="showSection('systemSettings')"><i class="fas fa-cogs"></i> System Settings</a>
             </div>
-
-
         </nav>
+
+        <!-- Sections for each menu item -->
+        <div id="manageCategories" class="content-section">Content for Manage Categories</div>
+        <div id="viewIdeas" class="content-section">Content for View Ideas</div>
+        <div id="commentsReports" class="content-section">Content for Comments and Reports</div>
+        <div id="userManagement" class="content-section">Content for User Management</div>
+        <div id="exportData" class="content-section">Content for Export Data</div>
+        <div id="exceptionReports" class="content-section">Content for Exception Reports</div>
+        <div id="statistics" class="content-section">Content for Statistics</div>
+        <div id="systemSettings" class="content-section">Content for System Settings</div>
+
+
 
 
     </div>
@@ -117,3 +127,16 @@ error_log(print_r($users_response, true));
 <?php
 include_once 'footer.php';
 ?>
+
+<!-- Script to Hide and show different Tabs on the dashboard -->
+<script>
+    function showSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll('.content-section').forEach((section) => {
+            section.style.display = 'none';
+        });
+
+        // Show the selected section
+        document.getElementById(sectionId).style.display = 'block';
+    }
+</script>
